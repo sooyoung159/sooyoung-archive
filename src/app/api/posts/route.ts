@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
+import { isAdminSession } from "@/lib/auth";
 import { getPosts, createPost, slugify } from "@/lib/posts";
 
 export async function GET() {
@@ -9,11 +12,16 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const cookieStore = await cookies();
-  const session = cookieStore.get("admin")?.value;
-  if (!session || session !== "true") {
+  const session = await getServerSession(authOptions);
+  if (!isAdminSession(session)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const body = (await request.json()) as { title: string; excerpt?: string; thumbnail?: string; body: string };
+  const body = (await request.json()) as {
+    title: string;
+    excerpt?: string;
+    thumbnail?: string;
+    body: string;
+  };
   if (!body.title?.trim() || !body.body?.trim()) {
     return NextResponse.json(
       { error: "title and body are required" },

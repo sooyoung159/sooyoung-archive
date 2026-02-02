@@ -16,7 +16,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container px-4 py-8">
+      <main className="mx-auto w-full max-w-7xl px-4 py-8">
         <h1 className="mb-8 text-2xl font-semibold">글 목록</h1>
         {posts.length === 0 ? (
           <p className="text-muted-foreground">아직 글이 없습니다.</p>
@@ -47,7 +47,9 @@ export default async function HomePage() {
                       </div>
                     )}
                     <CardHeader>
-                      <CardTitle className="line-clamp-2">{post.title}</CardTitle>
+                      <CardTitle className="line-clamp-2">
+                        {post.title}
+                      </CardTitle>
                       {post.excerpt && (
                         <CardDescription className="line-clamp-2">
                           {post.excerpt}

@@ -1,9 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { getServerAuthSession } from "@/auth";
 import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
+import { isAdminSession } from "@/lib/auth";
 import { getPostBySlug } from "@/lib/posts";
+import { normalizeMarkdownImages } from "@/lib/markdown";
+import { PostActions } from "./post-actions";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -11,23 +15,43 @@ export default async function PostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) notFound();
+  const session = await getServerAuthSession();
+  const isAdmin = isAdminSession(session);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container max-w-3xl px-4 py-8">
-        <Button variant="ghost" size="sm" asChild className="mb-6">
-          <Link href="/">← 목록</Link>
-        </Button>
-        <article>
-          <header className="mb-8">
-            <h1 className="text-3xl font-bold tracking-tight">{post.title}</h1>
-            <time className="text-sm text-muted-foreground">
-              {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+      <main className="mx-auto w-full max-w-7xl px-4 py-10 lg:py-14">
+        <div className="mb-8 flex items-center justify-between">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/">← 목록</Link>
+          </Button>
+          {isAdmin && <PostActions slug={post.slug} />}
+        </div>
+
+        <article className="mx-auto max-w-3xl">
+          <header className="mb-10 text-center">
+            <div className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+              Sooyoung Archive
+            </div>
+            <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+              {post.title}
+            </h1>
+            <time className="mt-4 block text-sm text-muted-foreground">
+              {new Date(post.createdAt).toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </time>
           </header>
-          <div className="prose prose-slate dark:prose-invert max-w-none">
-            <ReactMarkdown>{post.body}</ReactMarkdown>
+
+          <div className="rounded-2xl border bg-card/70 p-6 shadow-sm sm:p-10">
+            <div className="prose prose-slate dark:prose-invert max-w-none prose-img:rounded-lg">
+              <ReactMarkdown>
+                {normalizeMarkdownImages(post.body)}
+              </ReactMarkdown>
+            </div>
           </div>
         </article>
       </main>

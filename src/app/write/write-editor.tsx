@@ -9,24 +9,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, ImagePlus, Upload } from "lucide-react";
+import { normalizeMarkdownImages } from "@/lib/markdown";
+import type { Post } from "@/lib/types";
 
-export function WriteEditor() {
-  const [title, setTitle] = useState("");
-  const [excerpt, setExcerpt] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
-  const [body, setBody] = useState("");
+type WriteEditorProps = {
+  initialPost?: Post;
+};
+
+export function WriteEditor({ initialPost }: WriteEditorProps) {
+  const [title, setTitle] = useState(initialPost?.title ?? "");
+  const [excerpt, setExcerpt] = useState(initialPost?.excerpt ?? "");
+  const [thumbnail, setThumbnail] = useState(initialPost?.thumbnail ?? "");
+  const [body, setBody] = useState(initialPost?.body ?? "");
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [done, setDone] = useState<string | null>(null);
   const thumbnailInputRef = useRef<HTMLInputElement>(null);
   const bodyImageInputRef = useRef<HTMLInputElement>(null);
+  const isEditing = Boolean(initialPost);
 
   async function handleSave() {
     if (!title.trim() || !body.trim()) return;
     setSaving(true);
     try {
-      const res = await fetch("/api/posts", {
-        method: "POST",
+      const endpoint = isEditing
+        ? `/api/posts/${initialPost?.slug}`
+        : "/api/posts";
+      const method = isEditing ? "PUT" : "POST";
+      const res = await fetch(endpoint, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: title.trim(),
@@ -47,10 +58,12 @@ export function WriteEditor() {
     }
   }
 
+  const previewBody = normalizeMarkdownImages(body);
+
   return (
     <>
       <Header />
-      <main className="container max-w-6xl px-4 py-6">
+      <main className="mx-auto w-full max-w-7xl px-4 py-6">
         <Button variant="ghost" size="sm" asChild className="mb-4">
           <Link href="/">
             <ArrowLeft className="size-4" />
@@ -60,14 +73,31 @@ export function WriteEditor() {
 
         {done ? (
           <div className="rounded-lg border bg-muted/50 p-6 text-center">
-            <p className="mb-4 font-medium">글이 저장되었습니다.</p>
+            <p className="mb-4 font-medium">
+              {isEditing ? "글이 수정되었습니다." : "글이 저장되었습니다."}
+            </p>
             <div className="flex justify-center gap-2">
               <Button asChild>
                 <Link href={`/post/${done}`}>글 보기</Link>
               </Button>
-              <Button variant="outline" onClick={() => { setDone(null); setTitle(""); setExcerpt(""); setThumbnail(""); setBody(""); }}>
-                새 글 쓰기
-              </Button>
+              {isEditing ? (
+                <Button variant="outline" onClick={() => setDone(null)}>
+                  다시 수정
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setDone(null);
+                    setTitle("");
+                    setExcerpt("");
+                    setThumbnail("");
+                    setBody("");
+                  }}
+                >
+                  새 글 쓰기
+                </Button>
+              )}
             </div>
           </div>
         ) : (
@@ -82,7 +112,9 @@ export function WriteEditor() {
               />
             </div>
             <div className="mb-4">
-              <label className="mb-2 block text-sm font-medium">요약 (선택)</label>
+              <label className="mb-2 block text-sm font-medium">
+                요약 (선택)
+              </label>
               <Input
                 placeholder="요약을 입력하세요"
                 value={excerpt}
@@ -91,7 +123,9 @@ export function WriteEditor() {
             </div>
 
             <div className="mb-4">
-              <label className="mb-2 block text-sm font-medium">썸네일 (선택)</label>
+              <label className="mb-2 block text-sm font-medium">
+                썸네일 (선택)
+              </label>
               <div className="flex flex-wrap items-end gap-2">
                 <Input
                   placeholder="썸네일 이미지 URL 또는 업로드 후 사용"
@@ -111,7 +145,10 @@ export function WriteEditor() {
                     try {
                       const form = new FormData();
                       form.append("file", file);
-                      const res = await fetch("/api/upload", { method: "POST", body: form });
+                      const res = await fetch("/api/upload", {
+                        method: "POST",
+                        body: form,
+                      });
                       if (!res.ok) throw new Error("업로드 실패");
                       const { url } = await res.json();
                       setThumbnail(url);
@@ -137,17 +174,29 @@ export function WriteEditor() {
               {thumbnail && (
                 <div className="mt-2 relative w-24 h-24 rounded-md overflow-hidden border bg-muted">
                   {thumbnail.startsWith("/") ? (
-                    <Image src={thumbnail} alt="썸네일 미리보기" fill className="object-cover" sizes="96px" />
+                    <Image
+                      src={thumbnail}
+                      alt="썸네일 미리보기"
+                      fill
+                      className="object-cover"
+                      sizes="96px"
+                    />
                   ) : (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={thumbnail} alt="썸네일 미리보기" className="h-full w-full object-cover" />
+                    <img
+                      src={thumbnail}
+                      alt="썸네일 미리보기"
+                      className="h-full w-full object-cover"
+                    />
                   )}
                 </div>
               )}
             </div>
 
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">본문 (마크다운)</span>
+              <span className="text-sm font-medium text-muted-foreground">
+                본문 (마크다운)
+              </span>
               <input
                 ref={bodyImageInputRef}
                 type="file"
@@ -160,7 +209,10 @@ export function WriteEditor() {
                   try {
                     const form = new FormData();
                     form.append("file", file);
-                    const res = await fetch("/api/upload", { method: "POST", body: form });
+                    const res = await fetch("/api/upload", {
+                      method: "POST",
+                      body: form,
+                    });
                     if (!res.ok) throw new Error("업로드 실패");
                     const { url } = await res.json();
                     setBody((prev) => prev + `\n![${file.name}](${url})\n`);
@@ -185,7 +237,9 @@ export function WriteEditor() {
             </div>
             <div className="grid gap-4 lg:grid-cols-2">
               <div>
-                <label className="mb-2 block text-sm font-medium text-muted-foreground">편집</label>
+                <label className="mb-2 block text-sm font-medium text-muted-foreground">
+                  편집
+                </label>
                 <Textarea
                   placeholder="마크다운으로 작성하세요..."
                   value={body}
@@ -194,22 +248,35 @@ export function WriteEditor() {
                 />
               </div>
               <div>
-                <label className="mb-2 block text-sm font-medium text-muted-foreground">미리보기</label>
+                <label className="mb-2 block text-sm font-medium text-muted-foreground">
+                  미리보기
+                </label>
                 <div className="min-h-[400px] rounded-md border bg-muted/30 p-6 overflow-auto">
                   {body ? (
                     <div className="prose prose-slate dark:prose-invert max-w-none prose-p:my-2 prose-headings:my-3">
-                      <ReactMarkdown>{body}</ReactMarkdown>
+                      <ReactMarkdown>{previewBody}</ReactMarkdown>
                     </div>
                   ) : (
-                    <p className="text-muted-foreground">내용을 입력하면 미리보기가 표시됩니다.</p>
+                    <p className="text-muted-foreground">
+                      내용을 입력하면 미리보기가 표시됩니다.
+                    </p>
                   )}
                 </div>
               </div>
             </div>
 
             <div className="mt-6 flex justify-end">
-              <Button onClick={handleSave} disabled={saving || !title.trim() || !body.trim()}>
-                {saving ? "저장 중..." : "저장"}
+              <Button
+                onClick={handleSave}
+                disabled={saving || !title.trim() || !body.trim()}
+              >
+                {saving
+                  ? isEditing
+                    ? "수정 중..."
+                    : "저장 중..."
+                  : isEditing
+                  ? "수정"
+                  : "저장"}
               </Button>
             </div>
           </>
