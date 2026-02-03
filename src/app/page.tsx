@@ -1,14 +1,18 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Header } from "@/components/header";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Header } from '@/components/header';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { getPosts } from "@/lib/posts";
+} from '@/components/ui/card';
+import { getPosts } from '@/lib/posts';
+
+// 배포 환경에서도 항상 최신 글 목록을 보여주기 위해
+// 이 페이지는 정적이 아니라 동적으로 렌더링한다.
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const posts = await getPosts();
@@ -28,7 +32,7 @@ export default async function HomePage() {
                   <Card className="h-full overflow-hidden transition-colors hover:bg-muted/50">
                     {post.thumbnail && (
                       <div className="relative aspect-video w-full bg-muted overflow-hidden">
-                        {post.thumbnail.startsWith("/") ? (
+                        {post.thumbnail.startsWith('/') ? (
                           <Image
                             src={post.thumbnail}
                             alt=""
@@ -58,7 +62,7 @@ export default async function HomePage() {
                     </CardHeader>
                     <CardContent>
                       <time className="text-xs text-muted-foreground">
-                        {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                        {new Date(post.createdAt).toLocaleDateString('ko-KR')}
                       </time>
                     </CardContent>
                   </Card>
