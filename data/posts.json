@@ -1,21 +1,12 @@
 [
   {
     "title": "사진도 잘올라가나",
-    "slug": "-가",
+    "slug": "사진도-잘올라가나",
     "excerpt": "사진 테스트",
-    "thumbnail": "https://pixabay.com/ko/images/download/banff-8329971_1920.jpg",
-    "body": "이미지는 넣엇는데 썸네일 미리보기가 제대로 나오지 않ㄴ네\n\n\n![프로필사진_압축.jpeg](/uploads/aebf0be5-2338-473a-bbe2-3103631e50e9.jpeg)\n!",
+    "thumbnail": "https://images.unsplash.com/photo-1769251845951-c271e703f047?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "body": "이미지는 넣엇는데 썸네일 미리보기가 제대로 나오지 않ㄴ네\n\n\n![수정 테스트](https://images.unsplash.com/photo-1769544513344-219557efdd99?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)\n!",
     "id": "58f85e21-4e80-4f0d-b82e-792efd11a82b",
     "createdAt": "2026-01-30T11:56:26.801Z",
-    "updatedAt": "2026-01-30T11:56:26.801Z"
-  },
-  {
-    "title": "안녕하세요",
-    "slug": "post-1769773566805",
-    "excerpt": "여기에 요약이 나오는건가",
-    "body": "### 안녕하세요\n\n## 블로그 작성을 해보자 \n\n## 오잘되네\n\n`이런것도` 잘 되지는 않는거 ㅅ타네 **gd** 오 그래도 잘나오는것같네",
-    "id": "9e671ea4-2edb-4258-bfd4-913eb8113e32",
-    "createdAt": "2026-01-30T11:46:06.808Z",
-    "updatedAt": "2026-01-30T11:46:06.808Z"
+    "updatedAt": "2026-02-02T10:47:19.616Z"
   }
 ]

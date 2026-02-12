@@ -1,11 +1,16 @@
 import type { Post } from "./types";
 import { supabase } from "./supabase";
 
-export async function getPosts(): Promise<Post[]> {
+export async function getPosts(page?: number, limit?: number): Promise<Post[]> {
+  const actualLimit = limit || 8;
+  const actualPage = page || 1;
+  const offset = (actualPage - 1) * actualLimit;
+
   const { data, error } = await supabase
     .from("posts")
     .select("*")
-    .order("createdAt", { ascending: false });
+    .order("createdAt", { ascending: false })
+    .range(offset, offset + actualLimit - 1);
 
   if (error) {
     // eslint-disable-next-line no-console
@@ -34,18 +39,18 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   // 모든 포스트를 가져와서 정규화된 slug로 비교
   const posts = await getPosts();
   const legacy = posts.find(
-    (p) => normalizeSlug(legacySlugify(p.title)) === normalized
+    (p) => normalizeSlug(legacySlugify(p.title)) === normalized,
   );
   if (legacy) return legacy;
 
   const byCurrent = posts.find(
-    (p) => normalizeSlug(slugify(p.title)) === normalized
+    (p) => normalizeSlug(slugify(p.title)) === normalized,
   );
   return byCurrent ?? null;
 }
 
 export async function createPost(
-  post: Omit<Post, "id" | "createdAt" | "updatedAt">
+  post: Omit<Post, "id" | "createdAt" | "updatedAt">,
 ): Promise<Post> {
   const id = crypto.randomUUID();
   const now = new Date().toISOString();
@@ -73,7 +78,7 @@ export async function createPost(
 
 export async function updatePostBySlug(
   slug: string,
-  update: Pick<Post, "title" | "slug" | "excerpt" | "thumbnail" | "body">
+  update: Pick<Post, "title" | "slug" | "excerpt" | "thumbnail" | "body">,
 ): Promise<Post | null> {
   const normalized = normalizeSlug(slug);
   const now = new Date().toISOString();
@@ -210,14 +215,28 @@ function findPostIndexBySlug(posts: Post[], slug: string): number {
   if (direct !== -1) return direct;
 
   const legacy = posts.findIndex(
-    (p) => normalizeSlug(legacySlugify(p.title)) === normalized
+    (p) => normalizeSlug(legacySlugify(p.title)) === normalized,
   );
   if (legacy !== -1) return legacy;
 
   const byCurrent = posts.findIndex(
-    (p) => normalizeSlug(slugify(p.title)) === normalized
+    (p) => normalizeSlug(slugify(p.title)) === normalized,
   );
   return byCurrent;
+}
+
+export async function getPostsCount(): Promise<number> {
+  const { count, error } = await supabase
+    .from("posts")
+    .select("*", { count: "exact", head: true });
+
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error("Error fetching posts count:", error);
+    return 0;
+  }
+
+  return count || 0;
 }
 
 export { slugify };
