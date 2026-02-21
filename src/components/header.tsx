@@ -74,27 +74,6 @@ export function Header() {
           )}
         </nav>
       </div>
-      <footer className="border-t bg-background">
-        <div className="mx-auto w-full max-w-7xl px-4 py-4">
-          <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground sm:flex-row sm:justify-between">
-            <p>© 2024 sooyoung archive. All rights reserved.</p>
-            <div className="flex gap-4">
-              <Link
-                href="/privacy"
-                className="hover:text-foreground transition-colors"
-              >
-                개인정보처리방침
-              </Link>
-              <Link
-                href="/contact"
-                className="hover:text-foreground transition-colors"
-              >
-                연락처
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
     </header>
   );
 }
