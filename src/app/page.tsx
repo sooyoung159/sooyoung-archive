@@ -22,7 +22,7 @@ export default async function HomePage({
 }) {
   const resolvedSearchParams = await searchParams;
   const currentPage = Number(resolvedSearchParams.page) || 1;
-  const postsPerPage = 8;
+  const postsPerPage = 9;
 
   const [posts, totalPosts] = await Promise.all([
     getPosts(currentPage, postsPerPage),
@@ -30,7 +30,7 @@ export default async function HomePage({
   ]);
 
   const totalPages = Math.ceil(totalPosts / postsPerPage);
-  const shouldShowPagination = totalPosts >= 9;
+  const shouldShowPagination = totalPosts >= 10;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
