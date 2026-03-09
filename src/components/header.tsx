@@ -50,6 +50,9 @@ export function Header() {
           </span>
         </Link>
         <nav className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/about">소개</Link>
+          </Button>
           {status === "authenticated" && (
             <>
               {isAdmin && (
