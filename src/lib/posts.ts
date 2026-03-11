@@ -225,6 +225,24 @@ function findPostIndexBySlug(posts: Post[], slug: string): number {
   return byCurrent;
 }
 
+export async function incrementViewCount(slug: string): Promise<number | null> {
+  const post = await getPostBySlug(slug);
+  if (!post) return null;
+
+  const newCount = (post.viewCount ?? 0) + 1;
+  const { error } = await supabase
+    .from("posts")
+    .update({ viewCount: newCount })
+    .eq("id", post.id);
+
+  if (error) {
+    // eslint-disable-next-line no-console
+    console.error("Error incrementing view count:", error);
+    return null;
+  }
+  return newCount;
+}
+
 export async function getPostsCount(): Promise<number> {
   const { count, error } = await supabase
     .from("posts")

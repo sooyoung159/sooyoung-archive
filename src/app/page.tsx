@@ -78,6 +78,8 @@ export default async function HomePage({
                     <CardContent>
                       <time className="text-xs text-muted-foreground">
                         {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                        {" · "}
+                        {post.viewCount ?? 0}회 조회
                       </time>
                     </CardContent>
                   </Card>

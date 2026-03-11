@@ -8,6 +8,7 @@ import { isAdminSession } from "@/lib/auth";
 import { getPostBySlug } from "@/lib/posts";
 import { normalizeMarkdownImages } from "@/lib/markdown";
 import { PostActions } from "./post-actions";
+import { PostViewTracker } from "./post-view-tracker";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -20,6 +21,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
+      <PostViewTracker slug={post.slug} />
       <Header />
       <main className="mx-auto w-full max-w-7xl px-4 py-10 lg:py-14">
         <div className="mb-8 flex items-center justify-between">
@@ -43,6 +45,8 @@ export default async function PostPage({ params }: Props) {
                 month: "long",
                 day: "numeric",
               })}
+              {" · "}
+              {post.viewCount ?? 0}회 조회
             </time>
           </header>
 

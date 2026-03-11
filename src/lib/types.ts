@@ -7,4 +7,5 @@ export type Post = {
   body: string;
   createdAt: string;
   updatedAt?: string;
+  viewCount?: number;
 };

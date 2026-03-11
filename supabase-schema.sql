@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS posts (
   thumbnail TEXT,
   body TEXT NOT NULL,
   "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  "updatedAt" TIMESTAMPTZ
+  "updatedAt" TIMESTAMPTZ,
+  "viewCount" INTEGER NOT NULL DEFAULT 0
 );
 
 -- slug로 빠른 검색을 위한 인덱스
@@ -39,3 +40,6 @@ CREATE POLICY "Authenticated users can update posts" ON posts
 CREATE POLICY "Authenticated users can delete posts" ON posts
   FOR DELETE
   USING (true);
+
+-- 조회수 컬럼 (테이블이 이미 존재하는 경우 아래 실행)
+-- ALTER TABLE posts ADD COLUMN IF NOT EXISTS "viewCount" INTEGER NOT NULL DEFAULT 0;
