@@ -9,6 +9,7 @@ import { getPostBySlug } from "@/lib/posts";
 import { normalizeMarkdownImages } from "@/lib/markdown";
 import { PostActions } from "./post-actions";
 import { PostViewTracker } from "./post-view-tracker";
+import { Comments } from "@/components/comments";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -57,6 +58,9 @@ export default async function PostPage({ params }: Props) {
               </ReactMarkdown>
             </div>
           </div>
+
+          {/* 댓글 섹션 */}
+          <Comments slug={post.slug} />
         </article>
       </main>
     </div>

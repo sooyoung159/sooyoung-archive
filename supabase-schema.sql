@@ -43,3 +43,33 @@ CREATE POLICY "Authenticated users can delete posts" ON posts
 
 -- 조회수 컬럼 (테이블이 이미 존재하는 경우 아래 실행)
 -- ALTER TABLE posts ADD COLUMN IF NOT EXISTS "viewCount" INTEGER NOT NULL DEFAULT 0;
+
+-- comments 테이블 생성
+CREATE TABLE IF NOT EXISTS comments (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  post_slug TEXT NOT NULL REFERENCES posts(slug) ON DELETE CASCADE,
+  nickname TEXT NOT NULL,
+  password TEXT NOT NULL,
+  content TEXT NOT NULL,
+  user_id UUID,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- 검색을 위한 인덱스
+CREATE INDEX IF NOT EXISTS idx_comments_post_slug ON comments(post_slug);
+CREATE INDEX IF NOT EXISTS idx_comments_created_at ON comments(created_at ASC);
+
+-- comments RLS 설정
+ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Anyone can read comments" ON comments
+  FOR SELECT
+  USING (true);
+
+CREATE POLICY "Anyone can insert comments" ON comments
+  FOR INSERT
+  WITH CHECK (true);
+
+CREATE POLICY "Anyone can delete comments" ON comments
+  FOR DELETE
+  USING (true);
