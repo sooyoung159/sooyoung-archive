@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Header } from "@/components/header";
+import { Sidebar } from "@/components/Sidebar";
 import {
   Card,
   CardContent,
@@ -35,9 +36,11 @@ export default async function HomePage({
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      <main className="flex-1 mx-auto w-full max-w-7xl px-4 py-8">
-        <h1 className="mb-8 text-2xl font-semibold">글 목록</h1>
-        {posts.length === 0 ? (
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 flex flex-col lg:flex-row gap-8">
+        <Sidebar />
+        <main className="flex-1 min-w-0">
+          <h1 className="mb-8 text-2xl font-semibold">전체보기</h1>
+          {posts.length === 0 ? (
           <p className="text-muted-foreground">아직 글이 없습니다.</p>
         ) : (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -93,8 +96,9 @@ export default async function HomePage({
         {shouldShowPagination && (
           <Pagination currentPage={currentPage} totalPages={totalPages} />
         )}
-      </main>
-      <footer className="border-t bg-background">
+        </main>
+      </div>
+      <footer className="border-t bg-background mt-auto">
         <div className="mx-auto w-full max-w-7xl px-4 py-4">
           <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground sm:flex-row sm:justify-between">
             <p>© 2026 sooyoung archive. All rights reserved.</p>

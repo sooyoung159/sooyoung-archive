@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     excerpt?: string;
     thumbnail?: string;
     body: string;
+    category_id?: string | null;
   };
   if (!body.title?.trim() || !body.body?.trim()) {
     return NextResponse.json(
@@ -35,6 +36,7 @@ export async function POST(request: Request) {
     excerpt: body.excerpt?.trim(),
     thumbnail: body.thumbnail?.trim() || undefined,
     body: body.body.trim(),
+    category_id: body.category_id || null,
   });
   return NextResponse.json(post);
 }

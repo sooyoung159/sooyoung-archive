@@ -1,16 +1,22 @@
 import type { Post } from "./types";
 import { supabase } from "./supabase";
 
-export async function getPosts(page?: number, limit?: number): Promise<Post[]> {
+export async function getPosts(page?: number, limit?: number, categoryId?: string): Promise<Post[]> {
   const actualLimit = limit || 8;
   const actualPage = page || 1;
   const offset = (actualPage - 1) * actualLimit;
 
-  const { data, error } = await supabase
+  let query = supabase
     .from("posts")
-    .select("*")
+    .select("*, category:categories(*)")
     .order("createdAt", { ascending: false })
     .range(offset, offset + actualLimit - 1);
+
+  if (categoryId) {
+    query = query.eq("category_id", categoryId);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     // eslint-disable-next-line no-console
@@ -27,7 +33,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   // 정확한 slug로 먼저 찾기
   const { data: direct, error: directError } = await supabase
     .from("posts")
-    .select("*")
+    .select("*, category:categories(*)")
     .ilike("slug", normalized)
     .limit(1)
     .single();
@@ -78,7 +84,7 @@ export async function createPost(
 
 export async function updatePostBySlug(
   slug: string,
-  update: Pick<Post, "title" | "slug" | "excerpt" | "thumbnail" | "body">,
+  update: Partial<Pick<Post, "title" | "slug" | "excerpt" | "thumbnail" | "body" | "category_id">>,
 ): Promise<Post | null> {
   const normalized = normalizeSlug(slug);
   const now = new Date().toISOString();
@@ -243,10 +249,16 @@ export async function incrementViewCount(slug: string): Promise<number | null> {
   return newCount;
 }
 
-export async function getPostsCount(): Promise<number> {
-  const { count, error } = await supabase
+export async function getPostsCount(categoryId?: string): Promise<number> {
+  let query = supabase
     .from("posts")
     .select("*", { count: "exact", head: true });
+
+  if (categoryId) {
+    query = query.eq("category_id", categoryId);
+  }
+
+  const { count, error } = await query;
 
   if (error) {
     // eslint-disable-next-line no-console

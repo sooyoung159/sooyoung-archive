@@ -56,12 +56,17 @@ export function Header() {
           {status === "authenticated" && (
             <>
               {isAdmin && (
-                <Button variant="ghost" size="sm" asChild>
-                  <Link href="/write">
-                    <PenLine className="size-4" />
-                    작성
-                  </Link>
-                </Button>
+                <>
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link href="/categories/manage">카테고리 관리</Link>
+                  </Button>
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link href="/write">
+                      <PenLine className="size-4" />
+                      작성
+                    </Link>
+                  </Button>
+                </>
               )}
               <Button variant="ghost" size="sm" onClick={handleLogout}>
                 <LogOut className="size-4" />
