@@ -1,11 +1,10 @@
-import { Header } from "@/components/header";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="mx-auto w-full max-w-4xl px-4 py-8">
+    <>
+      <div className="mx-auto w-full max-w-4xl px-0 py-4">
         <h1 className="mb-8 text-3xl font-bold">개인정보처리방침</h1>
 
         <div className="space-y-6">
@@ -180,7 +179,7 @@ export default function PrivacyPage() {
             </CardContent>
           </Card>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }

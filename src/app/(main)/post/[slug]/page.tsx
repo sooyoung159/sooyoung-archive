@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { getServerAuthSession } from "@/auth";
-import { Header } from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { isAdminSession } from "@/lib/auth";
 import { getPostBySlug } from "@/lib/posts";
@@ -21,10 +20,9 @@ export default async function PostPage({ params }: Props) {
   const isAdmin = isAdminSession(session);
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <PostViewTracker slug={post.slug} />
-      <Header />
-      <main className="mx-auto w-full max-w-7xl px-4 py-10 lg:py-14">
+      <div className="mx-auto w-full max-w-7xl px-0 py-2 lg:py-4">
         <div className="mb-8 flex items-center justify-between">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/">← 목록</Link>
@@ -62,7 +60,7 @@ export default async function PostPage({ params }: Props) {
           {/* 댓글 섹션 */}
           <Comments slug={post.slug} />
         </article>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }

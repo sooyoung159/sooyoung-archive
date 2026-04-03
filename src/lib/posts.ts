@@ -1,7 +1,7 @@
 import type { Post } from "./types";
 import { supabase } from "./supabase";
 
-export async function getPosts(page?: number, limit?: number, categoryId?: string): Promise<Post[]> {
+export async function getPosts(page?: number, limit?: number, categoryId?: string | string[]): Promise<Post[]> {
   const actualLimit = limit || 8;
   const actualPage = page || 1;
   const offset = (actualPage - 1) * actualLimit;
@@ -13,7 +13,11 @@ export async function getPosts(page?: number, limit?: number, categoryId?: strin
     .range(offset, offset + actualLimit - 1);
 
   if (categoryId) {
-    query = query.eq("category_id", categoryId);
+    if (Array.isArray(categoryId)) {
+      query = query.in("category_id", categoryId);
+    } else {
+      query = query.eq("category_id", categoryId);
+    }
   }
 
   const { data, error } = await query;
@@ -249,13 +253,17 @@ export async function incrementViewCount(slug: string): Promise<number | null> {
   return newCount;
 }
 
-export async function getPostsCount(categoryId?: string): Promise<number> {
+export async function getPostsCount(categoryId?: string | string[]): Promise<number> {
   let query = supabase
     .from("posts")
     .select("*", { count: "exact", head: true });
 
   if (categoryId) {
-    query = query.eq("category_id", categoryId);
+    if (Array.isArray(categoryId)) {
+      query = query.in("category_id", categoryId);
+    } else {
+      query = query.eq("category_id", categoryId);
+    }
   }
 
   const { count, error } = await query;

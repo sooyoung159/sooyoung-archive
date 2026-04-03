@@ -1,13 +1,12 @@
-import { Header } from '@/components/header';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="mx-auto w-full max-w-4xl px-4 py-8">
+    <>
+      <div className="mx-auto w-full max-w-4xl px-0 py-4">
         <h1 className="mb-8 text-3xl font-bold">연락처</h1>
         
         <Card>
@@ -59,7 +58,7 @@ export default function ContactPage() {
             </section>
           </CardContent>
         </Card>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
