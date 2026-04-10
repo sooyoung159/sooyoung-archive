@@ -14,6 +14,31 @@ import { getCategoryBySlug, getCategories } from "@/lib/categories";
 
 export const dynamic = "force-dynamic";
 
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const category = await getCategoryBySlug(resolvedParams.slug);
+
+  if (!category) {
+    return { title: "카테고리를 찾을 수 없습니다" };
+  }
+
+  return {
+    title: `${category.name} 카테고리 | 수영의 개발 아카이브`,
+    description: `${category.name}에 관련된 개발 지식과 포스트 모음입니다.`,
+    openGraph: {
+      title: `${category.name} | 수영의 개발 아카이브`,
+      description: `${category.name}에 관련된 다양한 개발 포스트를 확인하세요.`,
+      url: `https://sooyoung-archive.vercel.app/category/${category.slug}`,
+    },
+  };
+}
+
 export default async function CategoryPage({
   params,
   searchParams,

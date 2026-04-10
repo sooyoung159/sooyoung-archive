@@ -10,7 +10,42 @@ import { PostActions } from "./post-actions";
 import { PostViewTracker } from "./post-view-tracker";
 import { Comments } from "@/components/comments";
 
+import { Metadata } from "next";
+
 type Props = { params: Promise<{ slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "포스트를 찾을 수 없습니다",
+    };
+  }
+
+  // 본문에서 HTML 태그와 마크다운 기호를 대략적으로 제거하고 텍스트만 추출 (요약본이 없을 경우)
+  const plainTextBody = post.body.replace(/[#*`_\[\]()]/g, "").slice(0, 160) + "...";
+  const description = post.excerpt || plainTextBody;
+
+  return {
+    title: `${post.title} | 수영의 개발 아카이브`,
+    description,
+    openGraph: {
+      title: post.title,
+      description,
+      type: "article",
+      url: `https://sooyoung-archive.vercel.app/post/${post.slug}`,
+      ...(post.thumbnail && { images: [{ url: post.thumbnail }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      ...(post.thumbnail && { images: [post.thumbnail] }),
+    },
+  };
+}
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;

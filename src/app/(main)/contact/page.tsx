@@ -2,6 +2,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Mail } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '연락처 | 수영의 개발 아카이브',
+  description: '블로그 운영, 콘텐츠 관련 등 다양한 문의를 위한 연락처 페이지입니다.',
+};
 
 export default function ContactPage() {
   return (

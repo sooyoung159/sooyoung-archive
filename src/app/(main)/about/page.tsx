@@ -1,6 +1,12 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Github, Code, BookOpen, Coffee } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "개발자 소개 | 수영의 개발 아카이브",
+  description: "웹 개발자 수영의 소개와 블로그 운영 철학, 연락처 정보입니다.",
+};
 
 export default function AboutPage() {
   return (
