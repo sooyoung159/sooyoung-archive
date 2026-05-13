@@ -112,9 +112,9 @@ export default function AboutPage() {
             <CardContent className="space-y-4">
               <p className="text-muted-foreground leading-relaxed">
                 &ldquo;꾸준함이 실력을 만든다&rdquo;는 믿음으로 매일 코드를
-                작성하고 기록합니다. 기록합니다. 완벽한 코드보다는 성장하는
-                과정을 중요하게 생각하며, 실패와 실수를 두려워하지 않고 도전하는
-                개발자가 되고자 합니다.
+                작성하고 기록합니다. 완벽한 코드보다는 성장하는 과정을
+                중요하게 생각하며, 실패와 실수를 두려워하지 않고 도전하는 개발자가
+                되고자 합니다.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
