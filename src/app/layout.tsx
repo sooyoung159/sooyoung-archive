@@ -56,14 +56,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <head>
-        {/* next/script(afterInteractive)가 sitemap.xml 등에 <script/>가 섞이는 경우가 있어 head의 일반 script로 로드 */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6835019974856590"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
