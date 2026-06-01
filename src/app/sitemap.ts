@@ -2,6 +2,9 @@ import { MetadataRoute } from "next";
 import { getPosts } from "@/lib/posts";
 import { getCategories } from "@/lib/categories";
 
+export const revalidate = 3600; // 1 hour caching
+
+
 function safeLastModified(iso?: string | null): Date {
   if (!iso) return new Date();
   const d = new Date(iso);
