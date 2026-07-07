@@ -8,7 +8,7 @@
 
 > 개인 프로젝트, 개발 일지, 그리고 일상의 생각들을 기록하는 나만의 아카이브 블로그입니다. 🚀
 
-🔗 **바로가기:** [https://sooyoung-archive.vercel.app](https://sooyoung-archive.vercel.app)
+🔗 **바로가기:** [https://sooyoung.pe.kr](https://sooyoung.pe.kr)
 
 ---
 

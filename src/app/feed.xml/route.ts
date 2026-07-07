@@ -18,7 +18,7 @@ function escapeXml(unsafe: string) {
 export async function GET() {
   const posts = await getPosts(1, 50); // 최신 50개만 피드에 포함
 
-  const baseUrl = "https://sooyoung-archive.vercel.app";
+  const baseUrl = "https://sooyoung.pe.kr";
   const title = "수영의 개발 아카이브";
   const description = "웹 개발자 수영의 프로젝트, 학습, 회고 기록";
   

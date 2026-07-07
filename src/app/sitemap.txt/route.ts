@@ -9,7 +9,7 @@ export async function GET() {
     getCategories(),
   ]);
 
-  const baseUrl = "https://sooyoung-archive.vercel.app";
+  const baseUrl = "https://sooyoung.pe.kr";
 
   const staticUrls = [
     baseUrl,

@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description,
       type: "article",
-      url: `https://sooyoung-archive.vercel.app/post/${post.slug}`,
+      url: `https://sooyoung.pe.kr/post/${post.slug}`,
       ...(post.thumbnail && { images: [{ url: post.thumbnail }] }),
     },
     twitter: {
