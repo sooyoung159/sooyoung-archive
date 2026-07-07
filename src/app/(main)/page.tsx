@@ -63,29 +63,7 @@ export default async function HomePage({
 
   return (
     <div className="space-y-10">
-      <section className="rounded-3xl border bg-card p-6 shadow-sm sm:p-8">
-        <div className="max-w-3xl space-y-4">
-          <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-            개인 개발 아카이브
-          </span>
-          <div className="space-y-3">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              직접 만들고 부딪히며 기록한 개발 로그를 정리하는 곳
-            </h1>
-            <p className="text-base leading-7 text-muted-foreground sm:text-lg">
-              Next.js, React, TypeScript, Supabase 기반 프로젝트를 만들면서 겪은 시행착오와
-              문제 해결 과정을 꾸준히 기록합니다. 배포 후기, 트러블슈팅, 제품 설계 판단까지
-              실전에서 부딪힌 내용을 중심으로 남깁니다.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1">프로젝트 회고</span>
-            <span className="rounded-full bg-muted px-3 py-1">트러블슈팅</span>
-            <span className="rounded-full bg-muted px-3 py-1">배포 & 운영</span>
-            <span className="rounded-full bg-muted px-3 py-1">기술 실험 기록</span>
-          </div>
-        </div>
-      </section>
+
 
       {featuredPosts.length > 0 && currentPage === 1 && (
         <section className="space-y-4">
