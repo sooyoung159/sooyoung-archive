@@ -70,7 +70,7 @@ export default async function HomePage({
           </span>
           <div className="space-y-3">
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              수영이 만들고 부딪히며 기록한 개발 로그를 정리하는 곳
+              직접 만들고 부딪히며 기록한 개발 로그를 정리하는 곳
             </h1>
             <p className="text-base leading-7 text-muted-foreground sm:text-lg">
               Next.js, React, TypeScript, Supabase 기반 프로젝트를 만들면서 겪은 시행착오와
