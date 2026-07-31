@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getPosts } from "@/lib/posts";
+import { getPosts, getPostsCount } from "@/lib/posts";
 import { getCategories } from "@/lib/categories";
 
 export const revalidate = 3600; // 1 hour caching
