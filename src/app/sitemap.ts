@@ -24,12 +24,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const categoryEntries: MetadataRoute.Sitemap = categories.map((category) => ({
-    url: `https://sooyoung.pe.kr/category/${encodeURIComponent(category.slug)}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
+  const categoryEntries: MetadataRoute.Sitemap = (
+    await Promise.all(
+      categories.map(async (category) => {
+        const childCategories = categories.filter((c) => c.parent_id === category.id);
+        const categoryIds = [category.id, ...childCategories.map((c) => c.id)];
+        const postCount = await getPostsCount(categoryIds);
+        if (postCount === 0) return null;
+
+        return {
+          url: `https://sooyoung.pe.kr/category/${encodeURIComponent(category.slug)}`,
+          lastModified: new Date(),
+          changeFrequency: "weekly" as const,
+          priority: 0.6,
+        };
+      })
+    )
+  ).filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
   const staticRoutes: MetadataRoute.Sitemap = ["", "/about", "/contact", "/privacy"].map(
     (route) => ({
