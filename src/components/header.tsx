@@ -44,12 +44,20 @@ export function Header() {
               />
             </svg>
           </span>
-          <span className="text-base font-semibold tracking-tight">
-            sooyoung
-            <span className="text-primary">archive</span>
+          <span className="text-base font-semibold tracking-tight flex items-center gap-1.5">
+            수영장
+            <span className="text-xs font-normal text-muted-foreground hidden sm:inline">
+              (Sooyoung Archive)
+            </span>
           </span>
         </Link>
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center gap-1 sm:gap-2">
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/">홈</Link>
+          </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/blog">개발일지</Link>
+          </Button>
           <Button variant="ghost" size="sm" asChild>
             <Link href="/about">소개</Link>
           </Button>
