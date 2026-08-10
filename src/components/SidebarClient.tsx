@@ -26,15 +26,20 @@ export function SidebarClient({ categories }: { categories: Category[] }) {
     return acc;
   }, {} as Record<string, typeof categories>);
 
+  // 홈(/) 및 비블로그 정적 페이지에서는 사이드바 숨김
+  if (!pathname || pathname === "/" || pathname === "/about" || pathname === "/contact" || pathname === "/privacy") {
+    return null;
+  }
+
   return (
     <aside className="w-full lg:w-64 flex-shrink-0">
       <div className="sticky top-20 flex flex-col gap-4">
         {/* 모바일 가로 스크롤, 데스크탑 세로 리스트 */}
         <nav className="flex lg:flex-col overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 hide-scrollbar gap-2 lg:gap-1">
           <Link
-            href="/"
+            href="/blog"
             className={`px-3 py-2 rounded-md whitespace-nowrap transition-colors ${
-              !currentCategorySlug && pathname === "/"
+              !currentCategorySlug && pathname === "/blog"
                 ? "bg-primary text-primary-foreground font-medium"
                 : "hover:bg-muted font-medium"
             }`}
