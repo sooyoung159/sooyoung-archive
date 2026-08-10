@@ -62,9 +62,9 @@ export default async function HomePage() {
             <span className="text-primary">마음껏 헤엄치는 공간.</span>
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            안녕하세요! 1인 개발자 <strong className="text-foreground">수영</strong>의 서비스 스튜디오이자 아카이브입니다.
-            직접 만드시는 <strong className="text-foreground">마이캠(MyCamp)</strong> 등의 커스텀 앱 프로젝트와 
-            그 과정에서 생긴 기술적 기록(Devlog)들을 한곳에 담아두었습니다.
+            1인 개발자 <strong className="text-foreground">수영</strong>의 프로젝트 스튜디오이자 아카이브입니다.
+            직접 만드는 <strong className="text-foreground">마이캠(MyCamp)</strong> 등의 서비스 프로젝트와 
+            그 과정에서 기록한 개발일지(Devlog)를 한곳에 담아두고 있습니다.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button size="lg" asChild className="rounded-full shadow-sm">
