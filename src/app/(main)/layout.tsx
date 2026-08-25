@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/Sidebar";
+import { SearchModal } from "@/components/search-modal";
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
+      <SearchModal />
       <div className="mx-auto w-full max-w-7xl px-4 py-8 flex flex-col lg:flex-row gap-8">
         <Sidebar />
         <main className="flex-1 min-w-0">

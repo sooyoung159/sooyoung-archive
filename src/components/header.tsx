@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { PenLine, LogIn, LogOut } from "lucide-react";
+import { PenLine, LogIn, LogOut, Search } from "lucide-react";
 
 export function Header() {
   const { data: session, status } = useSession();
@@ -60,6 +60,18 @@ export function Header() {
           </Button>
           <Button variant="ghost" size="sm" asChild>
             <Link href="/about">소개</Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-search"))}
+            className="h-8 gap-1.5 px-2 text-xs text-muted-foreground hover:text-foreground"
+          >
+            <Search className="size-3.5 text-muted-foreground" />
+            <span className="hidden md:inline">검색</span>
+            <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-0.5 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100">
+              <span>⌘</span>K
+            </kbd>
           </Button>
           {status === "authenticated" && (
             <>
