@@ -8,6 +8,7 @@ export interface Project {
   statusColor: string;
   tags: string[];
   demoUrl?: string;
+  appStoreUrl?: string;
   githubUrl?: string;
   devlogCategorySlug?: string;
   accentColor: string;
@@ -20,19 +21,21 @@ export const PROJECTS: Project[] = [
   {
     id: "mycamp",
     name: "MyCamp",
-    nameKo: "마이캠",
-    subtitle: "나만의 캠핑 기록 & 공간 서비스",
+    nameKo: "이번캠 (마이캠)",
+    subtitle: "캠핑 기록과 플랜 공유 서비스",
     description:
-      "다녀온 캠핑장의 위치, 날씨, 장비, 분위기와 사진을 한곳에 기록하고 통계로 보는 캠퍼 전용 커스텀 기록 서비스입니다.",
-    status: "개발 중",
+      "캠핑 갈 곳을 고르고, 저장하고, 공유하는 캠핑 로그. 전국 캠핑장 검색부터 찐후기 피드, 나만의 캠핑 지도, App Store 출시 및 웹 서비스까지 제공합니다.",
+    status: "웹 출시",
     statusColor: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
     accentColor: "#10b981",
-    tags: ["Next.js", "Supabase", "지도 API", "캠핑 일기"],
+    tags: ["App Store 출시 🍎", "Next.js 16", "Supabase", "Capacitor iOS/Android", "GoCamping API"],
+    demoUrl: "https://camp.sooyoung.pe.kr",
+    appStoreUrl: "https://apps.apple.com/kr/app/%EC%9D%B4%EB%B2%88%EC%BA%A0/id6790258305",
     devlogCategorySlug: "my-camp-log",
     features: [
-      "지도 기반의 캠핑장 탐색 & 위치별 기록",
-      "캠핑 장비 및 조과/날씨 자동 정리",
-      "감성 사진 중심의 커스텀 포토 다이어리",
+      "App Store 공식 출시 (iOS) & 웹 서비스 동시 운영",
+      "전국 2,000+ 캠핑장 실시간 검색 & 비교",
+      "광고 없는 생생한 찐후기 포토 피드 & 지도 저장",
     ],
   },
 ];

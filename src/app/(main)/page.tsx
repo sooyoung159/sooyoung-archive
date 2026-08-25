@@ -138,10 +138,25 @@ export default async function HomePage() {
                 </div>
 
                 <div className="pt-4 flex flex-wrap gap-3">
+                  <Button variant="default" className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white" asChild>
+                    <a href="https://camp.sooyoung.pe.kr" target="_blank" rel="noreferrer">
+                      웹 서비스 접속 <ArrowRight className="ml-1.5 size-4" />
+                    </a>
+                  </Button>
+                  <Button variant="outline" className="rounded-full" asChild>
+                    <a href="https://apps.apple.com/kr/app/%EC%9D%B4%EB%B2%88%EC%BA%A0/id6790258305" target="_blank" rel="noreferrer">
+                      🍎 App Store
+                    </a>
+                  </Button>
+                  <Button variant="outline" className="rounded-full" asChild>
+                    <Link href="/apps/mycamp">
+                      소개 페이지
+                    </Link>
+                  </Button>
                   {mainApp.devlogCategorySlug && (
-                    <Button variant="default" className="rounded-full" asChild>
+                    <Button variant="ghost" className="rounded-full" asChild>
                       <Link href={`/category/${mainApp.devlogCategorySlug}`}>
-                        개발기 모아보기 <ArrowRight className="ml-1.5 size-4" />
+                        개발기 읽기
                       </Link>
                     </Button>
                   )}

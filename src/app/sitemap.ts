@@ -42,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     )
   ).filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 
-  const staticRoutes: MetadataRoute.Sitemap = ["", "/blog", "/about", "/contact", "/privacy"].map(
+  const staticRoutes: MetadataRoute.Sitemap = ["", "/blog", "/apps/mycamp", "/about", "/contact", "/privacy"].map(
     (route) => ({
       url: `https://sooyoung.pe.kr${route}`,
       lastModified: new Date(),
