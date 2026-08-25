@@ -24,25 +24,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  // 본문에서 HTML 태그와 마크다운 기호를 대략적으로 제거하고 텍스트만 추출 (요약본이 없을 경우)
   const plainTextBody = post.body.replace(/[#*`_\[\]()]/g, "").slice(0, 160) + "...";
   const description = post.excerpt || plainTextBody;
 
+  const categoryName = post.category ? post.category.name : "Devlog";
+  const dynamicOgUrl = `https://sooyoung.pe.kr/api/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(categoryName)}`;
+  const imageUrl = post.thumbnail && post.thumbnail.startsWith("http") ? post.thumbnail : dynamicOgUrl;
+
   return {
-    title: `${post.title} | 수영의 개발 아카이브`,
+    title: `${post.title} | 수영장 (Sooyoung Archive)`,
     description,
     openGraph: {
       title: post.title,
       description,
       type: "article",
       url: `https://sooyoung.pe.kr/post/${post.slug}`,
-      ...(post.thumbnail && { images: [{ url: post.thumbnail }] }),
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description,
-      ...(post.thumbnail && { images: [post.thumbnail] }),
+      images: [imageUrl],
     },
   };
 }

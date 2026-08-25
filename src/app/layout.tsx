@@ -35,15 +35,24 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "수영" }],
   openGraph: {
-    title: "수영의 개발 아카이브",
-    description: "웹 개발자의 프로그래밍 학습 일지와 기술 노하우 공유 블로그",
+    title: "수영장 (Sooyoung Archive)",
+    description: "아이디어를 만난 수영, 마음껏 헤엄치는 공간. 1인 개발자 수영의 프로젝트 & 개발 일지",
     type: "website",
     locale: "ko_KR",
+    images: [
+      {
+        url: "https://sooyoung.pe.kr/api/og?title=아이디어를 만난 수영, 마음껏 헤엄치는 공간.&category=Studio",
+        width: 1200,
+        height: 630,
+        alt: "수영장 (Sooyoung Archive)",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "수영의 개발 아카이브",
-    description: "웹 개발자의 프로그래밍 학습 일지와 기술 노하우 공유 블로그",
+    title: "수영장 (Sooyoung Archive)",
+    description: "아이디어를 만난 수영, 마음껏 헤엄치는 공간. 1인 개발자 수영의 프로젝트 & 개발 일지",
+    images: ["https://sooyoung.pe.kr/api/og?title=아이디어를 만난 수영, 마음껏 헤엄치는 공간.&category=Studio"],
   },
   other: {
     "google-adsense-account": "ca-pub-6835019974856590",
