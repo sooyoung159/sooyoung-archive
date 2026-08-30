@@ -277,4 +277,111 @@ export async function getPostsCount(categoryId?: string | string[]): Promise<num
   return count || 0;
 }
 
+export async function getAdjacentPosts(
+  currentPostId: string,
+  createdAt: string,
+  categoryId?: string | null,
+): Promise<{ prev: Post | null; next: Post | null }> {
+  try {
+    let prevQuery = supabase
+      .from("posts")
+      .select("*, category:categories(*)")
+      .lt("createdAt", createdAt)
+      .order("createdAt", { ascending: false })
+      .limit(1);
+
+    let nextQuery = supabase
+      .from("posts")
+      .select("*, category:categories(*)")
+      .gt("createdAt", createdAt)
+      .order("createdAt", { ascending: true })
+      .limit(1);
+
+    if (categoryId) {
+      prevQuery = prevQuery.eq("category_id", categoryId);
+      nextQuery = nextQuery.eq("category_id", categoryId);
+    }
+
+    const [{ data: prevData }, { data: nextData }] = await Promise.all([
+      prevQuery,
+      nextQuery,
+    ]);
+
+    let prev = (prevData?.[0] as unknown as Post) || null;
+    let next = (nextData?.[0] as unknown as Post) || null;
+
+    if (!prev && categoryId) {
+      const { data: globalPrev } = await supabase
+        .from("posts")
+        .select("*, category:categories(*)")
+        .lt("createdAt", createdAt)
+        .order("createdAt", { ascending: false })
+        .limit(1);
+      prev = (globalPrev?.[0] as unknown as Post) || null;
+    }
+
+    if (!next && categoryId) {
+      const { data: globalNext } = await supabase
+        .from("posts")
+        .select("*, category:categories(*)")
+        .gt("createdAt", createdAt)
+        .order("createdAt", { ascending: true })
+        .limit(1);
+      next = (globalNext?.[0] as unknown as Post) || null;
+    }
+
+    return { prev, next };
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error fetching adjacent posts:", err);
+    return { prev: null, next: null };
+  }
+}
+
+export async function getRelatedPosts(
+  currentPostId: string,
+  categoryId?: string | null,
+  limit = 3,
+): Promise<Post[]> {
+  try {
+    let related: Post[] = [];
+
+    if (categoryId) {
+      const { data } = await supabase
+        .from("posts")
+        .select("*, category:categories(*)")
+        .eq("category_id", categoryId)
+        .neq("id", currentPostId)
+        .order("createdAt", { ascending: false })
+        .limit(limit);
+
+      if (data) {
+        related = data as unknown as Post[];
+      }
+    }
+
+    if (related.length < limit) {
+      const needed = limit - related.length;
+      const existingIds = [currentPostId, ...related.map((p) => p.id)];
+
+      const { data: fallback } = await supabase
+        .from("posts")
+        .select("*, category:categories(*)")
+        .not("id", "in", `(${existingIds.join(",")})`)
+        .order("createdAt", { ascending: false })
+        .limit(needed);
+
+      if (fallback) {
+        related = [...related, ...(fallback as unknown as Post[])];
+      }
+    }
+
+    return related;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error fetching related posts:", err);
+    return [];
+  }
+}
+
 export { slugify };

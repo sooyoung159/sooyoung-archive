@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getServerAuthSession } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { isAdminSession } from "@/lib/auth";
-import { getPostBySlug } from "@/lib/posts";
+import { getPostBySlug, getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
 import {
   normalizeMarkdownImages,
   extractToc,
@@ -16,6 +16,8 @@ import { ReadingProgressBar } from "@/components/reading-progress-bar";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { TableOfContents } from "@/components/table-of-contents";
 import { PostShareButtons } from "@/components/post-share-buttons";
+import { PostNavigation } from "@/components/post-navigation";
+import { RelatedPosts } from "@/components/related-posts";
 import { Clock, Calendar, Eye, ArrowLeft, Tag } from "lucide-react";
 import { Metadata } from "next";
 
@@ -74,6 +76,11 @@ export default async function PostPage({ params }: Props) {
   const normalizedBody = normalizeMarkdownImages(post.body);
   const toc = extractToc(normalizedBody);
   const readingMinutes = calculateReadingTime(normalizedBody);
+
+  const [{ prev, next }, relatedPosts] = await Promise.all([
+    getAdjacentPosts(post.id, post.createdAt, post.category_id),
+    getRelatedPosts(post.id, post.category_id, 3),
+  ]);
 
   return (
     <>
@@ -143,6 +150,12 @@ export default async function PostPage({ params }: Props) {
 
             {/* Social Share & Copy Link */}
             <PostShareButtons title={post.title} slug={post.slug} />
+
+            {/* Previous / Next Post Navigation */}
+            <PostNavigation prev={prev} next={next} />
+
+            {/* Related Posts Recommendation */}
+            <RelatedPosts posts={relatedPosts} categoryName={post.category?.name} />
 
             {/* Comments Section */}
             <Comments slug={post.slug} />
