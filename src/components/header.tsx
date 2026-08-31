@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { PenLine, LogIn, LogOut, Search } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   const { data: session, status } = useSession();
@@ -73,6 +74,9 @@ export function Header() {
               <span>⌘</span>K
             </kbd>
           </Button>
+
+          <ThemeToggle />
+
           {status === "authenticated" && (
             <>
               {isAdmin && (
