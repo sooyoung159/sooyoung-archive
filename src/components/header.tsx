@@ -59,6 +59,19 @@ export function Header() {
           <Button variant="ghost" size="sm" asChild>
             <Link href="/blog">개발일지</Link>
           </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-emerald-500 hover:text-emerald-600 hover:bg-emerald-500/10 font-medium"
+            asChild
+          >
+            <Link href="/apps/mycamp" className="flex items-center gap-1">
+              <span>이번캠</span>
+              <span className="text-[10px] rounded-full bg-emerald-500/15 px-1.5 py-0.5 font-semibold text-emerald-500 hidden sm:inline">
+                App
+              </span>
+            </Link>
+          </Button>
           <Button variant="ghost" size="sm" asChild>
             <Link href="/about">소개</Link>
           </Button>
