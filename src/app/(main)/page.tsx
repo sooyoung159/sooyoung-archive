@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "수영장 (Sooyoung Archive) - 1인 개발자 스튜디오 & 개발일지",
   description:
-    "아이디어를 만난 수영, 마음껏 헤엄치는 아카이브. 마이캠(MyCamp) 등 1인 개발 프로젝트와 기술 블로그 모음입니다.",
+    "아이디어를 만난 수영, 마음껏 헤엄치는 아카이브. 이번캠(MyCamp) 등 1인 개발 프로젝트와 기술 블로그 모음입니다.",
 };
 
 function renderThumbnail(post: { thumbnail?: string; title: string }) {
@@ -45,7 +45,7 @@ function renderThumbnail(post: { thumbnail?: string; title: string }) {
 export default async function HomePage() {
   // Fetch top 3 latest posts for the devlog section
   const recentPosts = await getPosts(1, 3);
-  const mainApp = PROJECTS[0]; // 마이캠 (MyCamp)
+  const mainApp = PROJECTS[0]; // 이번캠 (MyCamp)
 
   return (
     <div className="space-y-16 py-2">
@@ -63,7 +63,7 @@ export default async function HomePage() {
           </h1>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
             1인 개발자 <strong className="text-foreground">수영</strong>의 프로젝트 스튜디오이자 아카이브입니다.
-            직접 만드는 <strong className="text-foreground">마이캠(MyCamp)</strong> 등의 서비스 프로젝트와 
+            직접 만드는 <strong className="text-foreground">이번캠(MyCamp)</strong> 등의 서비스 프로젝트와 
             그 과정에서 기록한 개발일지(Devlog)를 한곳에 담아두고 있습니다.
           </p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -79,7 +79,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 2. Flagship App Showcase (마이캠) */}
+      {/* 2. Flagship App Showcase (이번캠) */}
       <section id="showcase" className="space-y-6">
         <div className="space-y-1">
           <div className="text-xs font-semibold uppercase tracking-wider text-primary">

@@ -21,7 +21,7 @@ export const PROJECTS: Project[] = [
   {
     id: "mycamp",
     name: "MyCamp",
-    nameKo: "이번캠 (마이캠)",
+    nameKo: "이번캠 (MyCamp)",
     subtitle: "캠핑 기록과 플랜 공유 서비스",
     description:
       "캠핑 갈 곳을 고르고, 저장하고, 공유하는 캠핑 로그. 전국 캠핑장 검색부터 찐후기 피드, 나만의 캠핑 지도, App Store 출시 및 웹 서비스까지 제공합니다.",
