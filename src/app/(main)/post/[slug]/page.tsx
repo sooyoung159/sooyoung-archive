@@ -16,6 +16,7 @@ import { ReadingProgressBar } from "@/components/reading-progress-bar";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { TableOfContents } from "@/components/table-of-contents";
 import { PostShareButtons } from "@/components/post-share-buttons";
+import { PostLikeButton } from "@/components/post-like-button";
 import { PostNavigation } from "@/components/post-navigation";
 import { RelatedPosts } from "@/components/related-posts";
 import { Clock, Calendar, Eye, ArrowLeft, Tag } from "lucide-react";
@@ -147,6 +148,9 @@ export default async function PostPage({ params }: Props) {
             <div className="rounded-3xl border border-border/80 bg-card/70 p-6 shadow-sm sm:p-10 backdrop-blur-sm">
               <MarkdownRenderer content={normalizedBody} />
             </div>
+
+            {/* Post Like & Reaction Button */}
+            <PostLikeButton slug={post.slug} />
 
             {/* Social Share & Copy Link */}
             <PostShareButtons title={post.title} slug={post.slug} />

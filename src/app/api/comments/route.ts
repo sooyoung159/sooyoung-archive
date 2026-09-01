@@ -13,6 +13,7 @@ export async function GET(request: Request) {
     .from("comments")
     .select("id, post_slug, nickname, content, user_id, created_at")
     .eq("post_slug", slug)
+    .neq("nickname", "__like__")
     .order("created_at", { ascending: true });
 
   if (error) {
