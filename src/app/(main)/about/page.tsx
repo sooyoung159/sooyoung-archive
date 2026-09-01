@@ -234,7 +234,7 @@ export default function AboutPage() {
                 <div className="absolute -left-[27px] top-1 size-3 rounded-full bg-muted-foreground ring-4 ring-background" />
                 <div className="text-xs font-mono font-semibold text-muted-foreground">2026. 02</div>
                 <div className="text-base font-bold text-foreground mt-0.5">
-                  캠핑 소셜 서비스 '캠핑인스타' 개발 착수
+                  캠핑 소셜 서비스 '이번캠 (구 캠핑인스타)' 개발 착수
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
                   Next.js, Supabase, 공공 API를 활용한 캠핑 로그 플랫폼 프로토타입 구축 시작.

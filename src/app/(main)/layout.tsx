@@ -17,7 +17,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
       <footer className="border-t bg-background mt-auto">
         <div className="mx-auto w-full max-w-7xl px-4 py-4">
           <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground sm:flex-row sm:justify-between">
-            <p>© 2026 sooyoung archive. All rights reserved.</p>
+            <p>© 2026 수영장 (Sooyoung Archive). All rights reserved.</p>
             <div className="flex gap-4">
               <Link
                 href="/privacy"

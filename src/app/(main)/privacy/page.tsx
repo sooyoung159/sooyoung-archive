@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '개인정보처리방침 | 수영의 개발 아카이브',
-  description: '수영의 개발 아카이브 블로그의 개인정보처리방침 안내입니다.',
+  title: '개인정보처리방침 | 수영장 (Sooyoung Archive)',
+  description: '수영장 (Sooyoung Archive)의 개인정보처리방침 안내입니다.',
 };
 
 export default function PrivacyPage() {

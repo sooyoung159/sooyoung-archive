@@ -5,8 +5,8 @@ import { Mail } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '연락처 | 수영의 개발 아카이브',
-  description: '블로그 운영, 콘텐츠 관련 등 다양한 문의를 위한 연락처 페이지입니다.',
+  title: '연락처 | 수영장 (Sooyoung Archive)',
+  description: '1인 개발자 수영의 프로젝트 및 블로그 운영 관련 문의를 위한 연락처 페이지입니다.',
 };
 
 export default function ContactPage() {

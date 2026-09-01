@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  title: "수영의 개발 아카이브 - 프로그래밍 일지 & 기술 블로그",
+  title: "수영장 (Sooyoung Archive) - 1인 개발자 스튜디오 & 기술 블로그",
   description:
-    "웹 개발자 수영의 프로그래밍 학습 일지. Next.js, React, TypeScript 등 최신 웹 기술 개발 경험과 노하우를 공유합니다. 실전 프로젝트 개발 과정과 문제 해결 경험을 담은 개인 기술 블로그.",
+    "아이디어를 만난 수영, 마음껏 헤엄치는 공간. 이번캠(MyCamp) 등 1인 개발 프로젝트와 실전 개발일지(Devlog) 아카이브.",
   keywords: [
     "개발 블로그",
     "프로그래밍",

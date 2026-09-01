@@ -29,10 +29,10 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${category.name} 카테고리 | 수영의 개발 아카이브`,
+    title: `${category.name} 카테고리 | 수영장 (Sooyoung Archive)`,
     description: `${category.name}에 관련된 개발 지식과 포스트 모음입니다.`,
     openGraph: {
-      title: `${category.name} | 수영의 개발 아카이브`,
+      title: `${category.name} | 수영장 (Sooyoung Archive)`,
       description: `${category.name}에 관련된 다양한 개발 포스트를 확인하세요.`,
       url: `https://sooyoung.pe.kr/category/${category.slug}`,
     },
