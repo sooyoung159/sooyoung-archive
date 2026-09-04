@@ -43,8 +43,8 @@ function renderThumbnail(post: { thumbnail?: string; title: string }) {
 }
 
 export default async function HomePage() {
-  // Fetch top 3 latest posts for the devlog section
-  const recentPosts = await getPosts(1, 3);
+  // Fetch top 6 latest posts for a rich devlog showcase
+  const recentPosts = await getPosts(1, 6);
   const mainApp = PROJECTS[0]; // 이번캠 (MyCamp)
 
   return (
@@ -183,12 +183,98 @@ export default async function HomePage() {
         )}
       </section>
 
-      {/* 3. Recent Devlogs */}
+      {/* 3. Featured Devlog Series (연재 시리즈 정주행) */}
+      <section className="space-y-6 pt-2">
+        <div className="space-y-1">
+          <div className="text-xs font-semibold uppercase tracking-wider text-primary">
+            Featured Series
+          </div>
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            실전 개발 연재 시리즈
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            하나의 프로덕트를 처음부터 끝까지 직접 만들며 마주친 문제와 해결 과정을 기록한 심층 시리즈입니다.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {/* Series 1: 이번캠 */}
+          <Card className="flex flex-col justify-between border-emerald-500/30 bg-card/60 transition-all hover:border-emerald-500 hover:shadow-md">
+            <CardHeader className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl">🏕️</span>
+                <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-semibold text-emerald-500">
+                  총 5편 완결
+                </span>
+              </div>
+              <CardTitle className="text-lg font-bold">이번캠 (MyCamp) 개발기</CardTitle>
+              <CardDescription className="text-xs leading-relaxed text-muted-foreground">
+                아이디어 기획부터 GoCamping 공공데이터 연동, Supabase RLS 트러블슈팅, Capacitor로 Apple App Store 심사 통과까지.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-emerald-500 hover:text-emerald-600">
+                <Link href="/category/my-camp-log">
+                  시리즈 5편 정주행하기 <ArrowRight className="size-3.5" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Series 2: 그림톡 */}
+          <Card className="flex flex-col justify-between border-border/80 bg-card/60 transition-all hover:border-primary/50 hover:shadow-md">
+            <CardHeader className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl">🎨</span>
+                <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-semibold text-secondary-foreground">
+                  총 3편 연재
+                </span>
+              </div>
+              <CardTitle className="text-lg font-bold">그림톡 (GrimTalk) 제작기</CardTitle>
+              <CardDescription className="text-xs leading-relaxed text-muted-foreground">
+                아이가 그린 그림이 말을 걸어주는 인터랙션 기획과 결과 화면 리디자인, 지속적인 대화 경험 설계 과정.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-primary hover:text-primary/80">
+                <Link href="/category/grimtalk">
+                  시리즈 3편 보러가기 <ArrowRight className="size-3.5" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Series 3: 삼문판결 */}
+          <Card className="flex flex-col justify-between border-border/80 bg-card/60 transition-all hover:border-primary/50 hover:shadow-md">
+            <CardHeader className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-2xl">⚖️</span>
+                <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-semibold text-secondary-foreground">
+                  총 5편 완결
+                </span>
+              </div>
+              <CardTitle className="text-lg font-bold">삼문판결 MVP & 회고</CardTitle>
+              <CardDescription className="text-xs leading-relaxed text-muted-foreground">
+                3문장 판결문 아이디어 검증, 재심 장치 설계, 데이터 기반 운영 지표 분석과 프로젝트 피벗 기준 정립 이야기.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-primary hover:text-primary/80">
+                <Link href="/category/develop">
+                  시리즈 5편 보러가기 <ArrowRight className="size-3.5" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* 4. Recent Devlogs */}
       <section className="space-y-6 pt-4">
         <div className="flex items-end justify-between">
           <div className="space-y-1">
             <div className="text-xs font-semibold uppercase tracking-wider text-primary">
-              Devlog
+              Latest Devlogs
             </div>
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
               최신 개발 일지
@@ -207,16 +293,18 @@ export default async function HomePage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {recentPosts.map((post) => (
               <Link key={post.id} href={`/post/${post.slug}`}>
-                <Card className="h-full overflow-hidden transition-all hover:border-primary/50 hover:shadow-md">
-                  {renderThumbnail({ thumbnail: post.thumbnail, title: post.title })}
-                  <CardHeader>
-                    <CardTitle className="line-clamp-2 text-base sm:text-lg">{post.title}</CardTitle>
-                    {post.excerpt && (
-                      <CardDescription className="line-clamp-2 text-sm leading-6">
-                        {post.excerpt}
-                      </CardDescription>
-                    )}
-                  </CardHeader>
+                <Card className="h-full overflow-hidden transition-all hover:border-primary/50 hover:shadow-md flex flex-col justify-between">
+                  <div>
+                    {renderThumbnail({ thumbnail: post.thumbnail, title: post.title })}
+                    <CardHeader>
+                      <CardTitle className="line-clamp-2 text-base sm:text-lg">{post.title}</CardTitle>
+                      {post.excerpt && (
+                        <CardDescription className="line-clamp-2 text-sm leading-6">
+                          {post.excerpt}
+                        </CardDescription>
+                      )}
+                    </CardHeader>
+                  </div>
                   <CardContent>
                     <time className="text-xs text-muted-foreground">
                       {new Date(post.createdAt).toLocaleDateString("ko-KR")}
