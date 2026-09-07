@@ -16,6 +16,9 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "개발일지 & 블로그 | 수영장 (Sooyoung Archive)",
   description: "웹 개발자 수영의 개발 일지와 학습 기록, 이슈 해결 로그 모음입니다.",
+  alternates: {
+    canonical: "/blog",
+  },
   openGraph: {
     title: "개발일지 | 수영장 (Sooyoung Archive)",
     description: "웹 개발자 수영의 개발 일지와 기술 노하우 모음",

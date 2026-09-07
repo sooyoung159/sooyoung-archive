@@ -15,9 +15,6 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sooyoung.pe.kr"),
-  alternates: {
-    canonical: "/",
-  },
   title: "수영장 (Sooyoung Archive) - 1인 개발자 스튜디오 & 기술 블로그",
   description:
     "아이디어를 만난 수영, 마음껏 헤엄치는 공간. 이번캠(MyCamp) 등 1인 개발 프로젝트와 실전 개발일지(Devlog) 아카이브.",

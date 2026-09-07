@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: "수영장 (Sooyoung Archive) - 1인 개발자 스튜디오 & 개발일지",
   description:
     "아이디어를 만난 수영, 마음껏 헤엄치는 아카이브. 이번캠(MyCamp) 등 1인 개발 프로젝트와 기술 블로그 모음입니다.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 function renderThumbnail(post: { thumbnail?: string; title: string }) {

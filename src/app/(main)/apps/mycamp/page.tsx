@@ -32,6 +32,9 @@ export const metadata: Metadata = {
   title: "이번캠 (MyCamp) - 캠핑 기록과 플랜 공유 서비스 | 수영장",
   description:
     "전국 2,000+ 캠핑장 검색, 광고 없는 찐후기 피드, 지도 기반 플랜 저장, iOS/Android 모바일 앱까지. 1인 개발자 수영의 캠핑 플랫폼 이번캠(MyCamp).",
+  alternates: {
+    canonical: "/apps/mycamp",
+  },
   openGraph: {
     title: "이번캠 (MyCamp) - 캠핑 기록과 플랜 공유 서비스",
     description: "전국 캠핑장 검색부터 찐후기 피드, 지도 기반 플랜 저장까지.",

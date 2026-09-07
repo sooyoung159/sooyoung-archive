@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   title: "소개 (About) | 수영장 (Sooyoung Archive)",
   description:
     "1인 개발자 수영의 프로젝트 아카이브 '수영장' 소개, 기술 스택, 이번캠(MyCamp) App Store 출시 여정 및 개발 철학입니다.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "소개 (About) | 수영장 (Sooyoung Archive)",
     description: "아이디어를 만난 수영, 마음껏 헤엄치는 공간. 1인 개발자 수영의 프로젝트 & 개발 일지.",

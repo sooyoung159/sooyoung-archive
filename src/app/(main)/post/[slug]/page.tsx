@@ -44,11 +44,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} | 수영장 (Sooyoung Archive)`,
     description,
+    alternates: {
+      canonical: `/post/${encodeURIComponent(post.slug)}`,
+    },
     openGraph: {
       title: post.title,
       description,
       type: "article",
-      url: `https://sooyoung.pe.kr/post/${post.slug}`,
+      url: `https://sooyoung.pe.kr/post/${encodeURIComponent(post.slug)}`,
       images: [
         {
           url: imageUrl,

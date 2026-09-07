@@ -7,6 +7,9 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: '연락처 | 수영장 (Sooyoung Archive)',
   description: '1인 개발자 수영의 프로젝트 및 블로그 운영 관련 문의를 위한 연락처 페이지입니다.',
+  alternates: {
+    canonical: '/contact',
+  },
 };
 
 export default function ContactPage() {
