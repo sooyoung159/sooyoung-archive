@@ -154,7 +154,7 @@ export default async function PostPage({ params }: Props) {
             )}
 
             {/* Mobile & Tablet Collapsible TOC */}
-            <TableOfContents toc={toc} />
+            <TableOfContents toc={toc} variant="inline" />
 
             {/* Post Body Container */}
             <div className="rounded-3xl border border-border/80 bg-card/70 p-6 shadow-sm sm:p-10 backdrop-blur-sm">
@@ -181,7 +181,7 @@ export default async function PostPage({ params }: Props) {
           {toc.length > 0 && (
             <aside className="hidden xl:block w-64 shrink-0">
               <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
-                <TableOfContents toc={toc} />
+                <TableOfContents toc={toc} variant="sidebar" />
               </div>
             </aside>
           )}
