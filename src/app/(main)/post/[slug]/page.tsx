@@ -19,6 +19,8 @@ import { PostShareButtons } from "@/components/post-share-buttons";
 import { PostLikeButton } from "@/components/post-like-button";
 import { PostNavigation } from "@/components/post-navigation";
 import { RelatedPosts } from "@/components/related-posts";
+import { SeriesBox } from "@/components/series-box";
+import { getSeriesByPostSlug } from "@/lib/series";
 import { Clock, Calendar, Eye, ArrowLeft, Tag } from "lucide-react";
 import { Metadata } from "next";
 
@@ -86,6 +88,8 @@ export default async function PostPage({ params }: Props) {
     getRelatedPosts(post.id, post.category_id, 3),
   ]);
 
+  const seriesContext = getSeriesByPostSlug(post.slug);
+
   return (
     <>
       <ReadingProgressBar />
@@ -143,6 +147,11 @@ export default async function PostPage({ params }: Props) {
                 </span>
               </div>
             </header>
+
+            {/* Series Callout Box */}
+            {seriesContext && (
+              <SeriesBox context={seriesContext} currentSlug={post.slug} />
+            )}
 
             {/* Mobile & Tablet Collapsible TOC */}
             <TableOfContents toc={toc} />
