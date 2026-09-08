@@ -2,6 +2,7 @@
 
 import ReactMarkdown from "react-markdown";
 import { CodeBlock } from "@/components/code-block";
+import { ImageZoom } from "@/components/image-zoom";
 import { slugifyHeading } from "@/lib/markdown";
 import { Hash } from "lucide-react";
 
@@ -104,6 +105,9 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 {children}
               </a>
             );
+          },
+          img: ({ src, alt, ...props }) => {
+            return <ImageZoom src={src} alt={alt} {...props} />;
           },
         }}
       >
