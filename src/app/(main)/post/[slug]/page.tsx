@@ -179,10 +179,8 @@ export default async function PostPage({ params }: Props) {
 
           {/* Desktop Sticky TOC Sidebar */}
           {toc.length > 0 && (
-            <aside className="hidden xl:block w-64 shrink-0">
-              <div className="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
-                <TableOfContents toc={toc} variant="sidebar" />
-              </div>
+            <aside className="hidden xl:block w-64 shrink-0 sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto">
+              <TableOfContents toc={toc} variant="sidebar" />
             </aside>
           )}
         </div>
