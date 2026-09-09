@@ -14,40 +14,63 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
-  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("dark");
+  const [theme, setThemeState] = useState<Theme>("system");
+  const [resolvedTheme, setResolvedTheme] = useState<"dark" | "light">("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = (localStorage.getItem("theme") as Theme) || "dark";
-    setThemeState(savedTheme);
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
+    if (savedTheme === "dark" || savedTheme === "light") {
+      setThemeState(savedTheme);
+    } else {
+      setThemeState("system");
+    }
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
 
     const root = document.documentElement;
-    const isSystemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const isDark = theme === "dark" || (theme === "system" && isSystemDark);
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    if (isDark) {
-      root.classList.add("dark");
-      setResolvedTheme("dark");
-    } else {
-      root.classList.remove("dark");
-      setResolvedTheme("light");
+    const applyTheme = () => {
+      const isSystemDark = mediaQuery.matches;
+      const isDark = theme === "dark" || (theme === "system" && isSystemDark);
+
+      if (isDark) {
+        root.classList.add("dark");
+        setResolvedTheme("dark");
+      } else {
+        root.classList.remove("dark");
+        setResolvedTheme("light");
+      }
+    };
+
+    applyTheme();
+
+    if (theme === "system") {
+      // 시스템 설정 변경 실시간 감지
+      const handler = () => applyTheme();
+      mediaQuery.addEventListener("change", handler);
+      return () => mediaQuery.removeEventListener("change", handler);
     }
-
-    localStorage.setItem("theme", theme);
   }, [theme, mounted]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
+    if (newTheme === "system") {
+      localStorage.removeItem("theme");
+    } else {
+      localStorage.setItem("theme", newTheme);
+    }
   };
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === "dark" ? "light" : "dark"));
+    // 현재 해석된 테마의 반대로 전환
+    const nextTheme: "dark" | "light" = resolvedTheme === "dark" ? "light" : "dark";
+    setThemeState(nextTheme);
+    localStorage.setItem("theme", nextTheme);
   };
 
   return (
