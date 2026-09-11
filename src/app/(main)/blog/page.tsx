@@ -14,7 +14,7 @@ import { getPosts, getPostsCount } from "@/lib/posts";
 import { getAllSeries } from "@/lib/series";
 import { BookOpen, ArrowRight } from "lucide-react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "개발일지 & 블로그 | 수영장 (Sooyoung Archive)",
@@ -29,23 +29,19 @@ export const metadata: Metadata = {
   },
 };
 
-function renderThumbnail(post: { thumbnail?: string; title: string }) {
+function renderThumbnail(post: { thumbnail?: string; title: string }, priority = false) {
   if (!post.thumbnail) return null;
 
   return (
     <div className="relative aspect-video w-full overflow-hidden bg-muted">
-      {post.thumbnail.startsWith("/") ? (
-        <Image
-          src={post.thumbnail}
-          alt={post.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={post.thumbnail} alt={post.title} className="h-full w-full object-cover" />
-      )}
+      <Image
+        src={post.thumbnail}
+        alt={post.title}
+        fill
+        priority={priority}
+        className="object-cover transition-transform duration-300 group-hover:scale-105"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
     </div>
   );
 }
@@ -131,11 +127,11 @@ export default async function BlogPage({
         <p className="text-muted-foreground py-10 text-center">아직 작성된 글이 없습니다.</p>
       ) : (
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+          {posts.map((post, idx) => (
             <li key={post.id}>
-              <Link href={`/post/${post.slug}`}>
+              <Link href={`/post/${post.slug}`} className="group block h-full">
                 <Card className="h-full overflow-hidden transition-all hover:border-primary/50 hover:shadow-md">
-                  {renderThumbnail({ thumbnail: post.thumbnail, title: post.title })}
+                  {renderThumbnail({ thumbnail: post.thumbnail, title: post.title }, idx === 0)}
                   <CardHeader>
                     <CardTitle className="line-clamp-2 text-lg">{post.title}</CardTitle>
                     {post.excerpt && (

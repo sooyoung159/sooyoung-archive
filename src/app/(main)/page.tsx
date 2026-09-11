@@ -13,7 +13,7 @@ import { getPosts } from "@/lib/posts";
 import { PROJECTS } from "@/config/projects";
 import { ArrowRight, Sparkles, MapPin, Notebook, Layers } from "lucide-react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "수영장 (Sooyoung Archive) - 1인 개발자 스튜디오 & 개발일지",
@@ -24,23 +24,19 @@ export const metadata: Metadata = {
   },
 };
 
-function renderThumbnail(post: { thumbnail?: string; title: string }) {
+function renderThumbnail(post: { thumbnail?: string; title: string }, priority = false) {
   if (!post.thumbnail) return null;
 
   return (
     <div className="relative aspect-video w-full overflow-hidden bg-muted">
-      {post.thumbnail.startsWith("/") ? (
-        <Image
-          src={post.thumbnail}
-          alt={post.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={post.thumbnail} alt={post.title} className="h-full w-full object-cover" />
-      )}
+      <Image
+        src={post.thumbnail}
+        alt={post.title}
+        fill
+        priority={priority}
+        className="object-cover transition-transform duration-300 group-hover:scale-105"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
     </div>
   );
 }
@@ -294,11 +290,11 @@ export default async function HomePage() {
           <p className="text-muted-foreground">아직 작성된 글이 없습니다.</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {recentPosts.map((post) => (
-              <Link key={post.id} href={`/post/${post.slug}`}>
+            {recentPosts.map((post, idx) => (
+              <Link key={post.id} href={`/post/${post.slug}`} className="group block h-full">
                 <Card className="h-full overflow-hidden transition-all hover:border-primary/50 hover:shadow-md flex flex-col justify-between">
                   <div>
-                    {renderThumbnail({ thumbnail: post.thumbnail, title: post.title })}
+                    {renderThumbnail({ thumbnail: post.thumbnail, title: post.title }, idx === 0)}
                     <CardHeader>
                       <CardTitle className="line-clamp-2 text-base sm:text-lg">{post.title}</CardTitle>
                       {post.excerpt && (

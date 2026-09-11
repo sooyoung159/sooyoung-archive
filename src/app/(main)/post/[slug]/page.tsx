@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getServerAuthSession } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { isAdminSession } from "@/lib/auth";
-import { getPostBySlug, getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
+import { getPostBySlug, getPosts, getAdjacentPosts, getRelatedPosts } from "@/lib/posts";
 import {
   normalizeMarkdownImages,
   extractToc,
@@ -25,6 +25,15 @@ import { Clock, Calendar, Eye, ArrowLeft, Tag } from "lucide-react";
 import { Metadata } from "next";
 
 type Props = { params: Promise<{ slug: string }> };
+
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const posts = await getPosts(1, 100);
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -90,8 +99,43 @@ export default async function PostPage({ params }: Props) {
 
   const seriesContext = getSeriesByPostSlug(post.slug);
 
+  const categoryName = post.category ? post.category.name : "Devlog";
+  const dynamicOgUrl = `https://sooyoung.pe.kr/api/og?title=${encodeURIComponent(post.title)}&category=${encodeURIComponent(categoryName)}`;
+  const imageUrl = post.thumbnail && post.thumbnail.startsWith("http") ? post.thumbnail : dynamicOgUrl;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt || post.title,
+    image: [imageUrl],
+    datePublished: post.createdAt,
+    dateModified: post.updatedAt || post.createdAt,
+    author: {
+      "@type": "Person",
+      name: "수영",
+      url: "https://sooyoung.pe.kr/about",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "수영장 (Sooyoung Archive)",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://sooyoung.pe.kr/icon.svg",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://sooyoung.pe.kr/post/${encodeURIComponent(post.slug)}`,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ReadingProgressBar />
       <PostViewTracker slug={post.slug} />
 
