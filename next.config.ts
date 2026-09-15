@@ -45,6 +45,25 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/category/blog",
+        destination: "/category/project",
+        permanent: true,
+      },
+      {
+        source: "/category/grimtalk",
+        destination: "/category/project",
+        permanent: true,
+      },
+      {
+        source: "/category/my-camp-log",
+        destination: "/category/project",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

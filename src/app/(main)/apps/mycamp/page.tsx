@@ -9,8 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getPosts, getPostsCount } from "@/lib/posts";
-import { getCategoryBySlug } from "@/lib/categories";
+import { SERIES_LIST } from "@/lib/series";
+import { supabase } from "@/lib/supabase";
+import { Post } from "@/lib/types";
 import {
   ExternalLink,
   MapPin,
@@ -71,13 +72,19 @@ function renderThumbnail(post: { thumbnail?: string; title: string }) {
 }
 
 export default async function MyCampAppPage() {
-  const category = await getCategoryBySlug("my-camp-log");
-  const categoryIds = category ? [category.id] : undefined;
+  const mycampSeries = SERIES_LIST.find((s) => s.id === "mycamp");
+  const slugs = mycampSeries?.posts.map((p) => p.slug) || [];
 
-  const [devlogPosts] = await Promise.all([
-    getPosts(1, 6, categoryIds),
-    getPostsCount(categoryIds),
-  ]);
+  const { data: rawPosts } = await supabase
+    .from("posts")
+    .select("*, category:categories(*)")
+    .in("slug", slugs);
+
+  const devlogPosts = ((rawPosts as Post[]) || []).sort((a, b) => {
+    const idxA = slugs.indexOf(a.slug);
+    const idxB = slugs.indexOf(b.slug);
+    return idxA - idxB;
+  });
 
   return (
     <div className="space-y-16 py-4">
@@ -272,8 +279,8 @@ export default async function MyCampAppPage() {
             </h2>
           </div>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/category/my-camp-log">
-              개발기 전체보기 <ArrowRight className="ml-1 size-4" />
+            <Link href="/category/project">
+              프로젝트 전체보기 <ArrowRight className="ml-1 size-4" />
             </Link>
           </Button>
         </div>
