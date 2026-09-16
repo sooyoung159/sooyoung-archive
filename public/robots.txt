@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /login
+Disallow: /write
+Disallow: /categories/manage
 
 User-agent: Mediapartners-Google
 Allow: /

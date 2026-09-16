@@ -132,7 +132,11 @@ export default async function CategoryPage({
           )}
 
           {shouldShowPagination && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              baseUrl={`/category/${encodeURIComponent(category.slug)}`}
+            />
           )}
     </>
   );

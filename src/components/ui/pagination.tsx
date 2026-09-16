@@ -4,10 +4,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
-  baseUrl?: string;
+  baseUrl: string;
 }
 
-export function Pagination({ currentPage, totalPages, baseUrl = '/' }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, baseUrl }: PaginationProps) {
   if (totalPages <= 1) return null;
 
   // 현재 페이지를 중심으로 최대 3개의 페이지 번호만 표시

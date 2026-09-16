@@ -35,7 +35,7 @@ export default function PrivacyPage() {
                   <li>문의사항에 대한 응대 및 처리</li>
                   <li>서비스 개선 및 신규 서비스 개발</li>
                   <li>댓글 및 소통 기능 제공</li>
-                  <li>사이트 통계 및 분석 (Google Analytics)</li>
+                  <li>광고 게재 및 광고 성과 측정 (Google AdSense)</li>
                   <li>보안 및 사이트 안정성 유지</li>
                 </ul>
               </section>
@@ -95,7 +95,10 @@ export default function PrivacyPage() {
                 <div className="bg-muted/50 p-3 rounded-lg">
                   <strong className="text-foreground">제휴 서비스:</strong>
                   <ul className="mt-2 ml-6 list-disc space-y-1 text-muted-foreground">
-                    <li>Google Analytics: 통계 분석 목적 (익명화된 데이터)</li>
+                    <li>
+                      Google AdSense: 광고 게재, 광고 성과 측정, 부정 클릭 방지 및
+                      관련 기능 제공
+                    </li>
                     <li>Vercel: 호스팅 서비스 제공 (필수 기술 정보)</li>
                   </ul>
                 </div>
@@ -106,13 +109,29 @@ export default function PrivacyPage() {
                   5. 쿠키(Cookie) 정책
                 </h2>
                 <p className="text-muted-foreground mb-3">
-                  본 블로그는 사용자 경험 개선을 위해 쿠키를 사용합니다.
+                  본 블로그는 서비스 기능 유지와 Google AdSense 광고 게재 및 측정을
+                  위해 쿠키와 유사 기술을 사용할 수 있습니다.
                 </p>
                 <ul className="ml-6 list-disc space-y-1 text-muted-foreground">
                   <li>필수 쿠키: 사이트 기능 유지 (세션 관리 등)</li>
-                  <li>분석 쿠키: Google Analytics를 통한 통계 수집</li>
+                  <li>
+                    광고 쿠키: Google을 포함한 제3자가 광고 게재 및 성과 측정을 위해
+                    쿠키, 웹 비콘, IP 주소 등의 식별자를 사용할 수 있음
+                  </li>
                   <li>사용자는 브라우저 설정으로 쿠키를 거부할 수 있음</li>
                 </ul>
+                <p className="text-muted-foreground mt-3">
+                  Google이 파트너 사이트에서 데이터를 사용하는 방법은{" "}
+                  <a
+                    className="underline underline-offset-4 hover:text-foreground"
+                    href="https://policies.google.com/technologies/partner-sites?hl=ko"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Google 개인정보처리방침 안내
+                  </a>
+                  에서 확인할 수 있습니다.
+                </p>
               </section>
 
               <section>

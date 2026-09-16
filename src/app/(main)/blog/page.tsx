@@ -156,7 +156,7 @@ export default async function BlogPage({
 
       {shouldShowPagination && (
         <div className="pt-4">
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
+          <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl="/blog" />
         </div>
       )}
     </div>

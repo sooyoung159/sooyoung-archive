@@ -20,6 +20,7 @@ import { PostLikeButton } from "@/components/post-like-button";
 import { PostNavigation } from "@/components/post-navigation";
 import { RelatedPosts } from "@/components/related-posts";
 import { SeriesBox } from "@/components/series-box";
+import { AdsenseLoader } from "@/components/adsense-loader";
 import { getSeriesByPostSlug } from "@/lib/series";
 import { Clock, Calendar, Eye, ArrowLeft, Tag } from "lucide-react";
 import { Metadata } from "next";
@@ -132,6 +133,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <>
+      <AdsenseLoader />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
