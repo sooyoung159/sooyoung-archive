@@ -213,7 +213,7 @@ export default async function HomePage() {
             </CardHeader>
             <CardContent className="pt-0">
               <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-emerald-500 hover:text-emerald-600">
-                <Link href="/category/my-camp-log">
+                <Link href="/category/project">
                   시리즈 5편 정주행하기 <ArrowRight className="size-3.5" />
                 </Link>
               </Button>
@@ -236,7 +236,7 @@ export default async function HomePage() {
             </CardHeader>
             <CardContent className="pt-0">
               <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-primary hover:text-primary/80">
-                <Link href="/category/grimtalk">
+                <Link href="/category/project">
                   시리즈 3편 보러가기 <ArrowRight className="size-3.5" />
                 </Link>
               </Button>

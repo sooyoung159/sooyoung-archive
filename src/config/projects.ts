@@ -31,7 +31,7 @@ export const PROJECTS: Project[] = [
     tags: ["App Store 출시 🍎", "Next.js 16", "Supabase", "Capacitor iOS/Android", "GoCamping API"],
     demoUrl: "https://camp.sooyoung.pe.kr",
     appStoreUrl: "https://apps.apple.com/kr/app/%EC%9D%B4%EB%B2%88%EC%BA%A0/id6790258305",
-    devlogCategorySlug: "my-camp-log",
+    devlogCategorySlug: "project",
     features: [
       "App Store 공식 출시 (iOS) & 웹 서비스 동시 운영",
       "전국 2,000+ 캠핑장 실시간 검색 & 비교",
