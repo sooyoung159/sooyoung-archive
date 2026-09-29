@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getPosts } from "@/lib/posts";
+import { getSeriesBySlug } from "@/lib/series";
 import { PROJECTS } from "@/config/projects";
 import { ArrowRight, Sparkles, MapPin, Notebook, Layers, Play } from "lucide-react";
 
@@ -39,6 +40,11 @@ function renderThumbnail(post: { thumbnail?: string; title: string }, priority =
       />
     </div>
   );
+}
+
+function firstSeriesPostHref(seriesId: string) {
+  const firstPost = getSeriesBySlug(seriesId)?.posts[0];
+  return firstPost ? `/post/${encodeURIComponent(firstPost.slug)}` : "/blog";
 }
 
 export default async function HomePage() {
@@ -102,7 +108,7 @@ export default async function HomePage() {
                   </span>
                 </div>
                 <h3 className="text-3xl font-bold tracking-tight text-foreground">
-                  {mainApp.nameKo} <span className="text-xl font-normal text-muted-foreground">({mainApp.name})</span>
+                  {mainApp.nameKo}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   {mainApp.description}
@@ -112,15 +118,15 @@ export default async function HomePage() {
                 <ul className="space-y-2 pt-1 text-sm text-muted-foreground">
                   <li className="flex items-center gap-2">
                     <MapPin className="size-4 text-emerald-500 shrink-0" />
-                    <span>지도 기반의 캠핑장 탐색 & 위치별 기록</span>
+                    <span>전국 캠핑장 검색과 지도 기반 후보 비교</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Notebook className="size-4 text-emerald-500 shrink-0" />
-                    <span>캠핑 장비 및 조과/날씨 자동 정리</span>
+                    <span>가보고 싶은 캠핑장 플랜 저장·공유</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Layers className="size-4 text-emerald-500 shrink-0" />
-                    <span>감성 사진 중심의 커스텀 포토 다이어리</span>
+                    <span>날씨·장비·사이트 정보를 담은 후기 기록</span>
                   </li>
                 </ul>
 
@@ -163,8 +169,8 @@ export default async function HomePage() {
                   </Button>
                   {mainApp.devlogCategorySlug && (
                     <Button variant="ghost" className="rounded-full" asChild>
-                      <Link href={`/category/${mainApp.devlogCategorySlug}`}>
-                        개발기 읽기
+                      <Link href={firstSeriesPostHref("mycamp")}>
+                        개발기 1편부터 읽기
                       </Link>
                     </Button>
                   )}
@@ -178,7 +184,7 @@ export default async function HomePage() {
                     <div className="h-12 w-12 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-xl border border-emerald-500/30">
                       🏕️
                     </div>
-                    <span className="text-xs font-mono text-muted-foreground">App v0.1</span>
+                    <span className="text-xs font-mono text-muted-foreground">iOS · Android</span>
                   </div>
                   <div className="space-y-1">
                     <div className="text-lg font-bold text-foreground">MyCamp</div>
@@ -222,7 +228,7 @@ export default async function HomePage() {
             </CardHeader>
             <CardContent className="pt-0">
               <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-emerald-500 hover:text-emerald-600">
-                <Link href="/category/project">
+                <Link href={firstSeriesPostHref("mycamp")}>
                   시리즈 5편 정주행하기 <ArrowRight className="size-3.5" />
                 </Link>
               </Button>
@@ -245,7 +251,7 @@ export default async function HomePage() {
             </CardHeader>
             <CardContent className="pt-0">
               <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-primary hover:text-primary/80">
-                <Link href="/category/project">
+                <Link href={firstSeriesPostHref("grimtalk")}>
                   시리즈 3편 보러가기 <ArrowRight className="size-3.5" />
                 </Link>
               </Button>
@@ -268,7 +274,7 @@ export default async function HomePage() {
             </CardHeader>
             <CardContent className="pt-0">
               <Button variant="ghost" size="sm" asChild className="w-full justify-between text-xs text-primary hover:text-primary/80">
-                <Link href="/category/develop">
+                <Link href={firstSeriesPostHref("sammun")}>
                   시리즈 5편 보러가기 <ArrowRight className="size-3.5" />
                 </Link>
               </Button>
