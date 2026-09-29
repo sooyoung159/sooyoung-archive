@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { getPosts } from "@/lib/posts";
 import { PROJECTS } from "@/config/projects";
-import { ArrowRight, Sparkles, MapPin, Notebook, Layers } from "lucide-react";
+import { ArrowRight, Sparkles, MapPin, Notebook, Layers, Play } from "lucide-react";
 
 export const revalidate = 60;
 
@@ -142,11 +142,20 @@ export default async function HomePage() {
                       웹 서비스 접속 <ArrowRight className="ml-1.5 size-4" />
                     </a>
                   </Button>
-                  <Button variant="outline" className="rounded-full" asChild>
-                    <a href="https://apps.apple.com/kr/app/%EC%9D%B4%EB%B2%88%EC%BA%A0/id6790258305" target="_blank" rel="noreferrer">
-                      🍎 App Store
-                    </a>
-                  </Button>
+                  {mainApp.appStoreUrl && (
+                    <Button variant="outline" className="rounded-full" asChild>
+                      <a href={mainApp.appStoreUrl} target="_blank" rel="noreferrer">
+                        🍎 App Store
+                      </a>
+                    </Button>
+                  )}
+                  {mainApp.playStoreUrl && (
+                    <Button variant="outline" className="rounded-full" asChild>
+                      <a href={mainApp.playStoreUrl} target="_blank" rel="noreferrer">
+                        <Play className="mr-1 size-4 fill-current" aria-hidden="true" /> Google Play
+                      </a>
+                    </Button>
+                  )}
                   <Button variant="outline" className="rounded-full" asChild>
                     <Link href="/apps/mycamp">
                       소개 페이지

@@ -23,6 +23,7 @@ import {
   Sparkles,
   ShieldCheck,
   Layers,
+  Play,
 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -98,7 +99,7 @@ export default async function MyCampAppPage() {
               <span>LIVE WEB & NATIVE APP SERVICE</span>
             </div>
             <div className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-stone-900/80 px-3.5 py-1 text-xs font-semibold text-stone-200">
-              <span>🍎 Apple App Store 출시 완료</span>
+              <span>iOS · Android 앱 출시 완료</span>
             </div>
           </div>
 
@@ -113,7 +114,7 @@ export default async function MyCampAppPage() {
 
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
             마음에 드는 캠핑장을 지도 위 플랜으로 저장하고 비교한 뒤, 다녀온 순간은 감성 포토 피드와 찐후기로 기록해 보세요.
-            PC/모바일 웹 서비스뿐만 아니라 Apple App Store(iOS) 앱까지 출시 완료된 1인 개발자 수영의 캠퍼 전용 올인원 플랫폼입니다.
+            PC/모바일 웹 서비스와 App Store(iOS), Google Play(Android)에서 만날 수 있는 1인 개발자 수영의 캠퍼 전용 올인원 플랫폼입니다.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-4">
@@ -125,6 +126,11 @@ export default async function MyCampAppPage() {
             <Button size="lg" variant="outline" className="rounded-full border-stone-700 bg-stone-900/50 hover:bg-stone-800 text-white font-medium" asChild>
               <a href="https://apps.apple.com/kr/app/%EC%9D%B4%EB%B2%88%EC%BA%A0/id6790258305" target="_blank" rel="noreferrer">
                 🍎 App Store에서 받기
+              </a>
+            </Button>
+            <Button size="lg" variant="outline" className="rounded-full border-stone-700 bg-stone-900/50 hover:bg-stone-800 text-white font-medium" asChild>
+              <a href="https://play.google.com/store/apps/details?id=com.mycamplog.app" target="_blank" rel="noreferrer">
+                <Play className="mr-2 size-4 fill-current" aria-hidden="true" /> Google Play에서 받기
               </a>
             </Button>
           </div>

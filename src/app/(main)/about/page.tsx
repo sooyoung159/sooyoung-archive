@@ -15,6 +15,7 @@ import {
   Heart,
   ArrowRight,
   Flame,
+  Play,
 } from "lucide-react";
 
 const ogImageUrl = `https://sooyoung.pe.kr/api/og?title=${encodeURIComponent("개발자 수영 소개 - 수영장 프로젝트 아카이브")}&category=About`;
@@ -22,7 +23,7 @@ const ogImageUrl = `https://sooyoung.pe.kr/api/og?title=${encodeURIComponent("�
 export const metadata: Metadata = {
   title: "소개 (About) | 수영장 (Sooyoung Archive)",
   description:
-    "1인 개발자 수영의 프로젝트 아카이브 '수영장' 소개, 기술 스택, 이번캠(MyCamp) App Store 출시 여정 및 개발 철학입니다.",
+    "1인 개발자 수영의 프로젝트 아카이브 '수영장' 소개, 기술 스택, 이번캠(MyCamp) iOS·Android 앱 출시 여정 및 개발 철학입니다.",
   alternates: {
     canonical: "/about",
   },
@@ -64,7 +65,7 @@ export default function AboutPage() {
 
           <p className="text-base text-muted-foreground leading-relaxed">
             머릿속에 떠오른 아이디어를 직접 설계하고 구현하여 실제 유저가 사용하는 프로덕트로 세상에 내놓는 1인 개발자입니다.
-            단순히 코드를 작성하는 것을 넘어, 기획부터 UI 디자인, 프론트엔드/백엔드 아키텍처, 그리고 애플 앱스토어 배포까지 모든 제품의 생애주기를 직접 경험하며 성장하고 있습니다.
+            단순히 코드를 작성하는 것을 넘어, 기획부터 UI 디자인, 프론트엔드/백엔드 아키텍처, 그리고 iOS·Android 앱 배포까지 모든 제품의 생애주기를 직접 경험하며 성장하고 있습니다.
           </p>
 
           {/* Quick Metrics Cards */}
@@ -74,8 +75,8 @@ export default function AboutPage() {
               <div className="text-xs text-muted-foreground mt-0.5">상용 프로덕트 출시</div>
             </div>
             <div className="rounded-2xl border border-border/60 bg-background/50 p-4">
-              <div className="text-2xl font-bold text-emerald-500">App Store</div>
-              <div className="text-xs text-muted-foreground mt-0.5">iOS 공식 출시 완료</div>
+              <div className="text-2xl font-bold text-emerald-500">2개 스토어</div>
+              <div className="text-xs text-muted-foreground mt-0.5">iOS · Android 공식 출시</div>
             </div>
             <div className="col-span-2 sm:col-span-1 rounded-2xl border border-border/60 bg-background/50 p-4">
               <div className="text-2xl font-bold text-emerald-500">20+ 편</div>
@@ -100,7 +101,7 @@ export default function AboutPage() {
                 <CardTitle className="text-2xl font-bold">이번캠 (MyCamp)</CardTitle>
               </div>
               <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-0.5 text-xs font-semibold text-emerald-500">
-                🍎 App Store 출시 & 웹 서비스 운영 중
+                iOS · Android 앱 출시 & 웹 서비스 운영 중
               </span>
             </div>
             <CardDescription className="text-base text-muted-foreground">
@@ -110,7 +111,7 @@ export default function AboutPage() {
           <CardContent className="space-y-6">
             <p className="text-sm leading-relaxed text-muted-foreground">
               전국 2,000+ 캠핑장 공공 데이터(GoCamping API) 연동, 광고 없는 생생한 찐후기 피드, 지도 기반 플랜 저장 및
-              Next.js 16과 Capacitor를 활용한 크로스플랫폼 iOS 앱까지 단일 코드베이스로 직접 구현했습니다.
+              Next.js 16과 Capacitor를 활용한 iOS·Android 앱까지 단일 코드베이스로 직접 구현했습니다.
             </p>
 
             <div className="flex flex-wrap gap-2.5">
@@ -122,6 +123,11 @@ export default function AboutPage() {
               <Button size="sm" variant="outline" className="rounded-full" asChild>
                 <a href="https://apps.apple.com/kr/app/%EC%9D%B4%EB%B2%88%EC%BA%A0/id6790258305" target="_blank" rel="noreferrer">
                   🍎 App Store 다운로드
+                </a>
+              </Button>
+              <Button size="sm" variant="outline" className="rounded-full" asChild>
+                <a href="https://play.google.com/store/apps/details?id=com.mycamplog.app" target="_blank" rel="noreferrer">
+                  <Play className="mr-1 size-3.5 fill-current" aria-hidden="true" /> Google Play 다운로드
                 </a>
               </Button>
               <Button size="sm" variant="ghost" className="rounded-full" asChild>
