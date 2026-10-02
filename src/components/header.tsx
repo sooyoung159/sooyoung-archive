@@ -20,8 +20,8 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 text-foreground">
+      <div className="mx-auto flex min-h-14 w-full max-w-7xl flex-col items-start justify-between gap-2 px-4 py-2 md:flex-row md:items-center">
+        <Link href="/" className="flex shrink-0 items-center gap-2 whitespace-nowrap text-foreground">
           <span className="inline-flex h-6 w-6 items-center justify-center text-primary">
             <svg
               width="24"
@@ -52,7 +52,7 @@ export function Header() {
             </span>
           </span>
         </Link>
-        <nav className="flex items-center gap-1 sm:gap-2">
+        <nav className="flex w-full min-w-0 flex-wrap items-center gap-1 sm:gap-2 md:w-auto md:justify-end">
           <Button variant="ghost" size="sm" asChild>
             <Link href="/">홈</Link>
           </Button>
@@ -80,6 +80,8 @@ export function Header() {
             size="sm"
             onClick={() => window.dispatchEvent(new CustomEvent("open-search"))}
             className="h-8 gap-1.5 px-2 text-xs text-muted-foreground hover:text-foreground"
+            aria-label="검색"
+            title="검색"
           >
             <Search className="size-3.5 text-muted-foreground" />
             <span className="hidden md:inline">검색</span>
@@ -105,16 +107,16 @@ export function Header() {
                   </Button>
                 </>
               )}
-              <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <Button variant="ghost" size="sm" onClick={handleLogout} aria-label="로그아웃" title="로그아웃">
                 <LogOut className="size-4" />
-                로그아웃
+                <span className="hidden sm:inline">로그아웃</span>
               </Button>
             </>
           )}
           {status === "unauthenticated" && (
-            <Button variant="ghost" size="sm" onClick={() => signIn("github")}>
+            <Button variant="ghost" size="sm" onClick={() => signIn("github")} aria-label="로그인" title="로그인">
               <LogIn className="size-4" />
-              로그인
+              <span className="hidden sm:inline">로그인</span>
             </Button>
           )}
         </nav>
