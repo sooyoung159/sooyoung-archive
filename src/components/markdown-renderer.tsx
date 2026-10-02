@@ -66,7 +66,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             if (isInline) {
               return (
                 <code
-                  className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.875em] font-medium text-foreground"
+                  className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.875em] font-medium text-foreground [overflow-wrap:anywhere]"
                   {...props}
                 >
                   {children}
