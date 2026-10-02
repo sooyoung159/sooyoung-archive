@@ -1,6 +1,7 @@
 "use client";
 
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { CodeBlock } from "@/components/code-block";
 import { ImageZoom } from "@/components/image-zoom";
 import { slugifyHeading } from "@/lib/markdown";
@@ -14,6 +15,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="prose prose-slate dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-img:rounded-xl prose-img:shadow-sm">
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           h2: ({ children, ...props }) => {
             const text = String(children);
@@ -78,7 +80,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           },
           table: ({ children, ...props }) => (
-            <div className="my-6 w-full overflow-y-auto rounded-lg border border-border">
+            <div className="my-6 w-full overflow-x-auto rounded-lg border border-border">
               <table className="w-full text-sm" {...props}>
                 {children}
               </table>
