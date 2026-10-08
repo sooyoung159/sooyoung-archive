@@ -1,0 +1,11 @@
+project_id = "sooyoung-archive"
+
+[db]
+major_version = 17
+
+[db.migrations]
+enabled = true
+schema_paths = []
+
+[db.seed]
+enabled = false

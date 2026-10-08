@@ -1,5 +1,6 @@
 import type { Post } from "./types";
 import { supabase } from "./supabase";
+import { getServerSupabase } from "./supabase-server";
 
 export async function getPosts(page?: number, limit?: number, categoryId?: string | string[]): Promise<Post[]> {
   const actualLimit = limit || 8;
@@ -71,7 +72,7 @@ export async function createPost(
     updatedAt: now,
   };
 
-  const { data, error } = await supabase
+  const { data, error } = await getServerSupabase()
     .from("posts")
     .insert([newPost])
     .select()
@@ -114,7 +115,7 @@ export async function updatePostBySlug(
       updatedAt: now,
     };
 
-    const { data, error } = await supabase
+    const { data, error } = await getServerSupabase()
       .from("posts")
       .update(updatedPost)
       .eq("id", post.id)
@@ -136,7 +137,7 @@ export async function updatePostBySlug(
     updatedAt: now,
   };
 
-  const { data, error } = await supabase
+  const { data, error } = await getServerSupabase()
     .from("posts")
     .update(updatedPost)
     .eq("id", existing.id)
@@ -170,7 +171,7 @@ export async function deletePostBySlug(slug: string): Promise<boolean> {
     if (index === -1) return false;
 
     const post = posts[index];
-    const { error } = await supabase.from("posts").delete().eq("id", post.id);
+    const { error } = await getServerSupabase().from("posts").delete().eq("id", post.id);
 
     if (error) {
       // eslint-disable-next-line no-console
@@ -181,7 +182,7 @@ export async function deletePostBySlug(slug: string): Promise<boolean> {
     return true;
   }
 
-  const { error } = await supabase.from("posts").delete().eq("id", existing.id);
+  const { error } = await getServerSupabase().from("posts").delete().eq("id", existing.id);
 
   if (error) {
     // eslint-disable-next-line no-console
@@ -239,18 +240,14 @@ export async function incrementViewCount(slug: string): Promise<number | null> {
   const post = await getPostBySlug(slug);
   if (!post) return null;
 
-  const newCount = (post.viewCount ?? 0) + 1;
-  const { error } = await supabase
-    .from("posts")
-    .update({ viewCount: newCount })
-    .eq("id", post.id);
+  const { data, error } = await getServerSupabase().rpc("increment_post_views", { post_id: post.id });
 
   if (error) {
     // eslint-disable-next-line no-console
     console.error("Error incrementing view count:", error);
     return null;
   }
-  return newCount;
+  return data as number | null;
 }
 
 export async function getPostsCount(categoryId?: string | string[]): Promise<number> {

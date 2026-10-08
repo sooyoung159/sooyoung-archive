@@ -36,8 +36,8 @@ export const PROJECTS: Project[] = [
     devlogCategorySlug: "project",
     features: [
       "App Store(iOS)와 Google Play(Android) 공식 출시 및 웹 서비스 운영",
-      "전국 2,000+ 캠핑장 실시간 검색 & 비교",
-      "광고 없는 생생한 찐후기 포토 피드 & 지도 저장",
+      "캠핑장 이름·지역 검색, 상세 정보 확인과 후보 비교",
+      "방문 기록과 사진 피드, 지도 저장과 플랜 공유",
     ],
   },
 ];

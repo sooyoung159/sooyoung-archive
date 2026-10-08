@@ -12,6 +12,8 @@ const ADSENSE_SRC =
  */
 export function AdsenseLoader() {
   useEffect(() => {
+    // Enable only after site approval and hosting terms allow advertisements.
+    if (process.env.NEXT_PUBLIC_ADSENSE_ENABLED !== "true") return;
     if (typeof document === "undefined") return;
     if (document.querySelector(`script[src^="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]`)) {
       return;

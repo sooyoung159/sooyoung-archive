@@ -36,6 +36,12 @@
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_server_only_key
+NEXTAUTH_SECRET=your_local_session_secret
+NEXTAUTH_URL=http://localhost:3000
+AUTH_GITHUB_ID=your_github_oauth_client_id
+AUTH_GITHUB_SECRET=your_github_oauth_secret
+ADMIN_GITHUB=your_admin_github_username
 ```
 
 ### 설치 및 실행
@@ -49,3 +55,24 @@ npm run dev
 ```
 
 브라우저에서 [http://localhost:3000](http://localhost:3000) 으로 접속하여 결과를 확인합니다.
+
+### 운영 보안 및 광고 준비
+
+서버 전용 Supabase 키에는 `NEXT_PUBLIC_` 접두사를 붙이지 않습니다.
+글·카테고리 변경은 관리자 API를 통해서만 수행하고 댓글 API는 비밀번호 해시를
+공개 응답에서 제외합니다. 기존 데이터베이스에도
+`supabase/migrations/202610080001_secure_public_access.sql`을 적용해야 합니다.
+코드 변경만으로 원격 데이터베이스의 권한은 변경되지 않습니다.
+
+광고 노출은 기본적으로 비활성화되어 있습니다. 광고 운영을 허용하는 호스팅과
+애드센스 승인 상태를 확인한 뒤에만 `NEXT_PUBLIC_ADSENSE_ENABLED=true`를
+설정하고 다시 배포합니다. 사이트 확인용 메타 태그와 `ads.txt`는 유지합니다.
+
+배포 순서와 광고 운영 조건은 [운영 점검](docs/adsense-readiness.md)을 참고합니다.
+콘텐츠 교정 원문은 `content/`에 보관하며, 게시글 ID·슬러그·작성일은 유지합니다.
+
+```bash
+npm test
+npx tsc --noEmit
+npx next build --webpack
+```

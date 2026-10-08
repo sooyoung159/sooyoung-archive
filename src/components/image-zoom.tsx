@@ -7,9 +7,11 @@ import { ZoomIn, X } from "lucide-react";
 interface ImageZoomProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src"> {
   src?: string | Blob;
   alt?: string;
+  showCaption?: boolean;
+  figureClassName?: string;
 }
 
-export function ImageZoom({ src, alt, className, ...props }: ImageZoomProps) {
+export function ImageZoom({ src, alt, className, showCaption = true, figureClassName, ...props }: ImageZoomProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -44,7 +46,7 @@ export function ImageZoom({ src, alt, className, ...props }: ImageZoomProps) {
   return (
     <>
       {/* 인라인 본문 이미지 */}
-      <figure className="my-6 block text-center">
+      <figure className={figureClassName || "my-6 block text-center"}>
         <span
           role="button"
           tabIndex={0}
@@ -74,7 +76,7 @@ export function ImageZoom({ src, alt, className, ...props }: ImageZoomProps) {
         </span>
 
         {/* 하단 캡션 (alt 내용이 있고 의미 있는 텍스트일 때) */}
-        {alt && alt.trim() !== "" && !alt.startsWith("http") && (
+        {showCaption && alt && alt.trim() !== "" && !alt.startsWith("http") && (
           <figcaption className="mt-2 text-center text-xs text-muted-foreground">
             {alt}
           </figcaption>

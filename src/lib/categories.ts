@@ -1,4 +1,5 @@
 import { supabase } from "./supabase";
+import { getServerSupabase } from "./supabase-server";
 import type { Category } from "./types";
 
 export async function getCategories(): Promise<Category[]> {
@@ -32,7 +33,7 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
 export async function createCategory(
   category: Omit<Category, "id" | "createdAt">,
 ): Promise<Category | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getServerSupabase()
     .from("categories")
     .insert([category])
     .select()
@@ -50,7 +51,7 @@ export async function updateCategory(
   id: string,
   updates: Partial<Omit<Category, "id" | "createdAt">>,
 ): Promise<Category | null> {
-  const { data, error } = await supabase
+  const { data, error } = await getServerSupabase()
     .from("categories")
     .update(updates)
     .eq("id", id)
@@ -66,7 +67,7 @@ export async function updateCategory(
 }
 
 export async function deleteCategory(id: string): Promise<boolean> {
-  const { error } = await supabase
+  const { error } = await getServerSupabase()
     .from("categories")
     .delete()
     .eq("id", id);

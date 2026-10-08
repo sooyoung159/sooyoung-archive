@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { getServerAuthSession } from "@/auth";
+import { isAdminSession } from "@/lib/auth";
 
 export async function GET() {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("admin")?.value;
-  return NextResponse.json({ isAdmin: session === "true" });
+  return NextResponse.json({ isAdmin: isAdminSession(await getServerAuthSession()) }, { headers: { "Cache-Control": "no-store" } });
 }

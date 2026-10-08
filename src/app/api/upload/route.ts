@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth";
 import { isAdminSession } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { getServerSupabase } from "@/lib/supabase-server";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 export async function POST(request: Request) {
-  const cookieStore = await cookies();
   const session = await getServerSession(authOptions);
   if (!isAdminSession(session)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -39,7 +37,8 @@ export async function POST(request: Request) {
   const buffer = Buffer.from(bytes);
 
   // Supabase Storage에 업로드
-  const { data, error } = await supabase.storage
+  const supabase = getServerSupabase();
+  const { error } = await supabase.storage
     .from("uploads")
     .upload(filename, buffer, {
       contentType: file.type,
